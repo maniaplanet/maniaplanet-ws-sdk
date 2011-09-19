@@ -2,6 +2,7 @@
 /**
  * Maniaplanet Web Services SDK for PHP
  *
+ * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
  * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
  * @author      $Author$:
@@ -17,7 +18,7 @@ namespace Maniaplanet\WebServices;
  */
 abstract class HTTPClient
 {
-	const VERSION = '1.0b';
+	const VERSION = '1.0b2';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',
@@ -259,12 +260,7 @@ abstract class HTTPClient
 		}
 		$options[CURLOPT_TIMEOUT] = 10;
 		$options[CURLOPT_RETURNTRANSFER] = true;
-		$options[CURLOPT_USERAGENT] = 'Maniaplanet Web Services SDK for PHP '.self::VERSION;
-
-		// This normally should not be done
-		// But the certificates of our api are self-signed for now
-		$options[CURLOPT_SSL_VERIFYHOST] = 0;
-		$options[CURLOPT_SSL_VERIFYPEER] = 0;
+		$options[CURLOPT_USERAGENT] = 'maniaplanet-ws-sdk/'.self::VERSION;
 
 		try
 		{
@@ -318,6 +314,10 @@ abstract class HTTPClient
 					if(property_exists($responseBody, 'message'))
 					{
 						$message = $responseBody->message;
+					}
+					elseif(property_exists($responseBody, 'error'))
+					{
+						$message = $responseBody->error;
 					}
 					if(property_exists($responseBody, 'code'))
 					{

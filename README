@@ -1,5 +1,5 @@
-Maniaplanet Web Services SDK for PHP v2.0
-========================================
+Maniaplanet Web Services SDK for PHP
+====================================
 
 The Maniaplanet Web Services is the public API that everyone can use to retrieve 
 various information about the game, the players, the rankings, etc.

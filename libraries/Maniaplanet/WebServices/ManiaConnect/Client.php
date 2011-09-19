@@ -2,6 +2,7 @@
 /**
  * Maniaplanet Web Services SDK for PHP
  *
+ * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
  * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
  * @author      $Author$:
@@ -51,7 +52,6 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 				throw new \Maniaplanet\WebServices\Exception('Failed to start session');
 			}
 		}
-		$this->setVariable('blap', time());
 		$this->vars = array();
 		// State is for CSRF attacks
 		// See http://en.wikipedia.org/wiki/Cross-site_request_forgery
@@ -119,6 +119,13 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$key = $this->getVariableKey($name);
 		$this->vars[$key] = $value;
 		$_SESSION[$key] = serialize($value);
+	}
+	
+	protected function deleteVariable($name)
+	{
+		$key = $this->getVariableKey($name);
+		unset($this->vars[$key]);
+		unset($_SESSION[$key]);
 	}
 
 	/**

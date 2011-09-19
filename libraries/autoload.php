@@ -2,6 +2,7 @@
 /**
  * Maniaplanet Web Services SDK for PHP
  *
+ * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
  * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
  * @author      $Author$:
@@ -15,6 +16,7 @@ define('APP_LIBRARIES_PATH', __DIR__.DIRECTORY_SEPARATOR);
  * It is registered with spl_autoload_register, so if you are already using the
  * __autoload() function don't forget to register it too in the spl autoloader 
  * stack.
+ * 
  * @see http://php.net/manual/en/function.spl-autoload-register.php
  */
 function manialib_autoload($className)
