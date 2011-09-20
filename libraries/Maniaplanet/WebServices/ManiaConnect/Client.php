@@ -87,7 +87,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLogoutURL($redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		return self::LOGOUT_URL.'?'.http_build_query(array('redirect_uri' => $redirectURI));
+		return self::LOGOUT_URL.'?'.http_build_query(array('redirect_uri' => $redirectURI), '', '&');
 	}
 
 	/**
@@ -151,7 +151,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			$params = array_filter($params);
 			if(!empty($params))
 			{
-				$query = '?'.http_build_query($params);
+				$query = '?'.http_build_query($params, '', '&');
 			}
 		}
 
@@ -216,7 +216,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'scope' => $scope,
 			'response_type' => 'code',
 			'state' => $this->getVariable('state'), // CSRF protection
-			));
+			), '', '&');
 		return self::AUTHORIZATION_URL.'?'.$params;
 	}
 
