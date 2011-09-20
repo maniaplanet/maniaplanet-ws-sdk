@@ -262,6 +262,9 @@ abstract class HTTPClient
 		$options[CURLOPT_RETURNTRANSFER] = true;
 		$options[CURLOPT_USERAGENT] = 'maniaplanet-ws-sdk/'.self::VERSION;
 
+		$options[CURLOPT_SSL_VERIFYHOST] = 0;
+		$options[CURLOPT_SSL_VERIFYPEER] = 0;
+		
 		try
 		{
 			$ch = curl_init();
