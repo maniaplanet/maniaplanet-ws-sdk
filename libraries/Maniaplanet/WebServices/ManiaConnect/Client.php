@@ -275,6 +275,9 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$this->contentType = $contentType;
 		$this->serializeCallback = $serializeCallback;
 
+		$this->deleteVariable('redirect_uri');
+		$this->deleteVariable('code');
+		
 		return $response->access_token;
 	}
 
