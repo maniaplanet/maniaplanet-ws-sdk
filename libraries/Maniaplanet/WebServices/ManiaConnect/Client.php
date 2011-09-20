@@ -242,6 +242,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			{
 				throw new \Maniaplanet\WebServices\Exception('CSRF attack protection failed');
 			}
+			$this->deleteVariable('state');
 			$code = $_REQUEST['code'];
 			if($code)
 			{
