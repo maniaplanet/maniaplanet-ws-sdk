@@ -87,7 +87,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLogoutURL($redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		return self::LOGOUT_URL.'?'.http_build_query(array('redirect_uri' => $redirectURI), '', '&');
+		return self::LOGOUT_URL.'?'.http_build_query(array('redirect_uri' => $redirectURI),
+				'', '&');
 	}
 
 	/**
@@ -120,7 +121,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$this->vars[$key] = $value;
 		$_SESSION[$key] = serialize($value);
 	}
-	
+
 	protected function deleteVariable($name)
 	{
 		$key = $this->getVariableKey($name);
@@ -193,7 +194,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 				$uri = $_SERVER['SCRIPT_NAME'];
 			}
 		}
-		// Prevent multiple slashes to avoid cross site requests via the Form API.
+		// Prevent multiple slashes to avoid cross site requests
 		$uri = '/'.ltrim($uri, '/');
 
 		return $uri;
@@ -269,15 +270,49 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'code' => $authorizationCode,
 			), '', '&');
 
-		// FIXME OAuth2 Handle known errors
-		$response = $this->execute('POST', self::TOKEN_PATH, array($params));
+		try
+		{
+			$response = $this->execute('POST', self::TOKEN_PATH, array($params));
+		}
+		catch(\Maniaplanet\WebServices\Exception $e)
+		{
+			switch($e->getMessage())
+			{
+				case 'invalid_request':
+					$message =
+						'invalid_request: The request is missing a required '.
+						'parameter, includes an unsupported parameter or '.
+						'parameter value, or is otherwise malformed.';
+					break;
+
+				case 'invalid_client':
+					$message =
+						'invalid_client: Application authentication failed. ';
+					break;
+
+				case 'invalid_grant':
+					$message =
+						'invalid_grant: The provided access grant is invalid, '.
+						'expired, or revoked (e.g. invalid assertion, expired '.
+						'authorization token, bad end-user password credentials, '.
+						'or mismatching authorization code and redirection URI).';
+					break;
+
+				default:
+					throw $e;
+			}
+
+			throw new \Maniaplanet\WebServices\Exception($message, $e->getCode(),
+				$e->getHTTPStatusCode(), $e->getHTTPStatusMessage());
+		}
+
 
 		$this->contentType = $contentType;
 		$this->serializeCallback = $serializeCallback;
 
 		$this->deleteVariable('redirect_uri');
 		$this->deleteVariable('code');
-		
+
 		return $response->access_token;
 	}
 

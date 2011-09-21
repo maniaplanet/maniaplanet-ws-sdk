@@ -21,12 +21,13 @@ class Exception extends \Exception
 	protected $HTTPStatusCode;
 	protected $HTTPStatusMessage;
 
-	function __construct($message='', $code=0, $statusCode=0, $statusMessage='')
+	function __construct($message='', $code=0, $HTTPStatusCode=0,
+		$HTTPStatusMessage='')
 	{
 		parent::__construct($message, $code);
 
-		$this->HTTPStatusCode = $statusCode;
-		$this->HTTPStatusMessage = $statusMessage;
+		$this->HTTPStatusCode = $HTTPStatusCode;
+		$this->HTTPStatusMessage = $HTTPStatusMessage;
 	}
 
 	/**
