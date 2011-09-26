@@ -69,6 +69,19 @@ class Player extends Client
 	{
 		return $this->execute('GET', '/player/buddies/');
 	}
+	
+	/**
+	 *Return the server list of the player as an array of dedicated
+	 * objectcts. See \ManiaPlanet\WebServices\Dedicated::get($login) for the struct.
+	 * 
+	 * Scope needed: dedicated
+	 * 
+	 * @return array[object]
+	 */
+	function getDedicated()
+	{
+		return $this->execute('GET', '/player/dedicated/');
+	}
 
 }
 
