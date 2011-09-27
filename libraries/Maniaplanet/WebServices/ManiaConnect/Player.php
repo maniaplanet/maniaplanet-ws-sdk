@@ -54,7 +54,7 @@ class Player extends Client
 	 */
 	function getOnlineStatus()
 	{
-		return $this->execute('GET', '/player/status/');
+		return $this->executeOAuth2('GET', '/player/status/');
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Player extends Client
 	 */
 	function getEmail()
 	{
-		return $this->execute('GET', '/player/email/');
+		return $this->executeOAuth2('GET', '/player/email/');
 	}
 
 	/**
@@ -78,7 +78,7 @@ class Player extends Client
 	 */
 	function getBuddies()
 	{
-		return $this->execute('GET', '/player/buddies/');
+		return $this->executeOAuth2('GET', '/player/buddies/');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Player extends Client
 	 */
 	function getDedicated()
 	{
-		return $this->execute('GET', '/player/dedicated/');
+		return $this->executeOAuth2('GET', '/player/dedicated/');
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Player extends Client
 	 */
 	function getManialinks()
 	{
-		return $this->execute('GET', '/player/manialinks/');
+		return $this->executeOAuth2('GET', '/player/manialinks/');
 	}
 
 }
