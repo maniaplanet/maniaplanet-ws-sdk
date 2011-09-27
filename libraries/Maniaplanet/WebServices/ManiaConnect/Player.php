@@ -23,19 +23,6 @@ class Player extends Client
 	 * It will retrieve an access token if possible and then call the service to
 	 * retrieve a basic object about the authentified player. 
 	 * 
-	 * Return struct is:
-	 * <code>
-	 * Object 
-	 * ( 
-	 *    [id] => int
-	 *    [login] => string
-	 *    [nickname] => string
-	 *    [united] => int, 0 for a nations account or 1 for a united one
-	 *    [path] => string, eg. "World|France|Ile-de-France|Paris"
-	 *    [idZone] => int
-	 * )
-	 * </code>
-	 * 
 	 * You do not need any special scope to call this service, as long as you 
 	 * have an access token.
 	 * 
@@ -58,8 +45,32 @@ class Player extends Client
 	}
 
 	/**
-	 * Returns the buddies of the player as an array of player 
-	 * objects. See self::player() for the struct.
+	 * Returns an object containing the online status and the dedicated server 
+	 * info on which the player is playing, if applicable.
+	 * 
+	 * Scope needed: online_status
+	 * 
+	 * @return object
+	 */
+	function getOnlineStatus()
+	{
+		return $this->execute('GET', '/player/status/');
+	}
+
+	/**
+	 * Returns the email associated with the player's account.
+	 * 
+	 * Scope needed: email
+	 * 
+	 * @return string
+	 */
+	function getEmail()
+	{
+		return $this->execute('GET', '/player/email/');
+	}
+
+	/**
+	 * Returns the buddies of the player as an array of player objects
 	 * 
 	 * Scope needed: buddies
 	 * 
@@ -69,10 +80,10 @@ class Player extends Client
 	{
 		return $this->execute('GET', '/player/buddies/');
 	}
-	
+
 	/**
-	 *Return the server list of the player as an array of dedicated
-	 * objectcts. See \ManiaPlanet\WebServices\Dedicated::get($login) for the struct.
+	 * Gets the list of the player's registered dedicated servers and their 
+	 * online statuses.
 	 * 
 	 * Scope needed: dedicated
 	 * 
@@ -81,6 +92,18 @@ class Player extends Client
 	function getDedicated()
 	{
 		return $this->execute('GET', '/player/dedicated/');
+	}
+
+	/**
+	 * Gets the list of the player's registered Manialinks.
+	 * 
+	 * Scope needed: manialinks
+	 * 
+	 * @return array[object]
+	 */
+	function getManialinks()
+	{
+		return $this->execute('GET', '/player/manialinks/');
 	}
 
 }

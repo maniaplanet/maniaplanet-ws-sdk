@@ -1,37 +1,31 @@
 <?php
-
 /**
+ * Maniaplanet Web Services SDK for PHP
+ *
+ * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
  * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
- * @version     $Revision$:
+ * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
  * @author      $Author$:
+ * @version     $Revision$:
  * @date        $Date$:
  */
+
 namespace Maniaplanet\WebServices;
 
 class Dedicated extends HTTPClient
 {
+
 	/**
-	 * Get information about the server. Return a Dedicated object.
-	 * Return struct is:
-	 * <code>
-	 * Object 
-	 * ( 
-	 *    [login] => string
-	 *    [owner] => string
-	 *    [serverName] => string
-	 *    [isOnline] => int, 0 for an offline server or 1 for a online one
-	 *    [isDedicated] => int, 0 for non dedicated account or 1 for a dedicated one
-	 *    [path] => string, eg. "World|France|Ile-de-France|Paris"
-	 *    [idZone] => int
-	 * )
-	 * </code>
+	 * Returns information about the specified dedicated server
 	 * 
 	 * @param string $login 
+	 * @return object
 	 */
 	function get($login)
 	{
 		$this->execute('GET', '/dedicated/%s/', array($login));
 	}
+
 }
 
 ?>

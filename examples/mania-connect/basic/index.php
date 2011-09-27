@@ -36,6 +36,8 @@ try
 catch(\Maniaplanet\WebServices\Exception $e)
 {
 	$player = null;
+	// Uncomment to debug...
+	//var_dump($e);
 }
 ?>
 <?php if(array_key_exists('HTTP_USER_AGENT', $_SERVER) && substr($_SERVER['HTTP_USER_AGENT'],
@@ -73,7 +75,6 @@ catch(\Maniaplanet\WebServices\Exception $e)
 						<input type="submit" name="submit" value="Logout" />
 					</form>
 				</p>
-
 			<?php else: ?>
 				<p>
 					<a href="<?php echo $loginURL ?>">Login with your Maniaplanet account</a>
