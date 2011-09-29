@@ -43,17 +43,17 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 * 
 	 * @param \Maniaplanet\WebServices\ManiaConnect\Persistance
 	 */
-	protected $persistance;
+	static protected $persistance;
 
 	static function setPersistance(Persistance $object)
 	{
-		if($this->persistance)
+		if(self::$persistance)
 		{
 			throw new \Maniaplanet\WebServices\Exception(
 				'You must set the persistance object before instanciating the '.
 				'services.');
 		}
-		$this->persistance = $object;
+		self::$persistance = $object;
 	}
 
 	function __construct($username = null, $password = null)
@@ -61,18 +61,18 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		parent::__construct($username, $password);
 
 		// Default persistance is using the PHP sessions
-		if(!$this->persistance)
+		if(!self::$persistance)
 		{
-			$this->persistance = new Session();
+			self::$persistance = new Session();
 		}
 
-		$this->persistance->init();
+		self::$persistance->init();
 
 		// State is for CSRF attacks
 		// See http://en.wikipedia.org/wiki/Cross-site_request_forgery
-		if(!$this->persistance->getVariable('state'))
+		if(!self::$persistance->getVariable('state'))
 		{
-			$this->persistance->setVariable('state',
+			self::$persistance->setVariable('state',
 				md5(pack('N3', mt_rand(), mt_rand(), mt_rand())));
 		}
 	}
@@ -88,7 +88,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLoginURL($scope = null, $redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		$this->persistance->setVariable('redirect_uri', $redirectURI);
+		self::$persistance->setVariable('redirect_uri', $redirectURI);
 		return $this->getAuthorizationURL($redirectURI, $scope);
 	}
 
@@ -113,7 +113,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	function logout()
 	{
-		$this->persistance->destroy();
+		self::$persistance->destroy();
 	}
 
 	/**
@@ -194,7 +194,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'redirect_uri' => $redirectURI,
 			'scope' => $scope,
 			'response_type' => 'code',
-			'state' => $this->persistance->getVariable('state'), // CSRF protection
+			'state' => self::$persistance->getVariable('state'), // CSRF protection
 			), '', '&');
 		return self::AUTHORIZATION_URL.'?'.$params;
 	}
@@ -210,24 +210,24 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function getAccessToken()
 	{
-		$token = $this->persistance->getVariable('access_token');
+		$token = self::$persistance->getVariable('access_token');
 		if($token)
 		{
 			return $token;
 		}
 		if(isset($_REQUEST['code']))
 		{
-			if(isset($_GET['state']) && $this->persistance->getVariable('state') && $_GET['state'] != $this->persistance->getVariable('state'))
+			if(isset($_GET['state']) && self::$persistance->getVariable('state') && $_GET['state'] != self::$persistance->getVariable('state'))
 			{
 				throw new \Maniaplanet\WebServices\Exception('CSRF attack protection failed');
 			}
-			$this->persistance->deleteVariable('state');
+			self::$persistance->deleteVariable('state');
 			$code = $_REQUEST['code'];
 			if($code)
 			{
 				$accessToken = $this->getAccessTokenFromCode($code,
-					$this->persistance->getVariable('redirect_uri'));
-				$this->persistance->setVariable('access_token', $accessToken);
+					self::$persistance->getVariable('redirect_uri'));
+				self::$persistance->setVariable('access_token', $accessToken);
 				return $accessToken;
 			}
 		}
@@ -288,8 +288,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$this->contentType = $contentType;
 		$this->serializeCallback = $serializeCallback;
 
-		$this->persistance->deleteVariable('redirect_uri');
-		$this->persistance->deleteVariable('code');
+		self::$persistance->deleteVariable('redirect_uri');
+		self::$persistance->deleteVariable('code');
 
 		return $response->access_token;
 	}
@@ -303,7 +303,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
 		$this->headers = array(sprintf('Authorization: Bearer %s',
-				$this->persistance->getVariable('access_token')));
+				self::$persistance->getVariable('access_token')));
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try

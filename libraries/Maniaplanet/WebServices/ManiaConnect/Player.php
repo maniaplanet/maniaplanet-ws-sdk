@@ -32,13 +32,13 @@ class Player extends Client
 	 */
 	function getPlayer()
 	{
-		$player = $this->persistance->getVariable('player');
+		$player = self::$persistance->getVariable('player');
 		if(!$player)
 		{
 			if($this->getAccessToken())
 			{
 				$player = $this->executeOAuth2('GET', '/player/');
-				$this->persistance->setVariable('player', $player);
+				self::$persistance->setVariable('player', $player);
 			}
 		}
 		return $player;
