@@ -35,29 +35,45 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 * @var string
 	 */
 	const TOKEN_PATH = '/oauth2/token/';
+
 	/**
-	 * Local array to store variables for the setVariable()/getVariable() methods.
+	 * An implementation of the Peristance interface to store data (such as 
+	 * access tokens) between requests. Default implementation is using PHP
+	 * session but you can easily write your own if needed.
 	 * 
-	 * @var array
+	 * @param \Maniaplanet\WebServices\ManiaConnect\Persistance
 	 */
-	protected $vars;
+	protected $persistance;
+
+	static function setPersistance(Persistance $object)
+	{
+		if($this->persistance)
+		{
+			throw new \Maniaplanet\WebServices\Exception(
+				'You must set the persistance object before instanciating the '.
+				'services.');
+		}
+		$this->persistance = $object;
+	}
 
 	function __construct($username = null, $password = null)
 	{
 		parent::__construct($username, $password);
-		if(!session_id())
+
+		// Default persistance is using the PHP sessions
+		if(!$this->persistance)
 		{
-			if(!session_start())
-			{
-				throw new \Maniaplanet\WebServices\Exception('Failed to start session');
-			}
+			$this->persistance = new Session();
 		}
-		$this->vars = array();
+
+		$this->persistance->init();
+
 		// State is for CSRF attacks
 		// See http://en.wikipedia.org/wiki/Cross-site_request_forgery
-		if(!$this->getVariable('state'))
+		if(!$this->persistance->getVariable('state'))
 		{
-			$this->setVariable('state', md5(pack('N3', mt_rand(), mt_rand(), mt_rand())));
+			$this->persistance->setVariable('state',
+				md5(pack('N3', mt_rand(), mt_rand(), mt_rand())));
 		}
 	}
 
@@ -72,7 +88,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLoginURL($scope = null, $redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		$this->setVariable('redirect_uri', $redirectURI);
+		$this->persistance->setVariable('redirect_uri', $redirectURI);
 		return $this->getAuthorizationURL($redirectURI, $scope);
 	}
 
@@ -92,41 +108,12 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 	/**
-	 * Empties the session and the class vars. Call that when you want to log a 
+	 * Destroys the persistance. Call that when you want to log a 
 	 * user out, or implement your own way of logging out.
 	 */
 	function logout()
 	{
-		session_destroy();
-		$this->vars = array();
-	}
-
-	protected function getVariable($name, $default = false)
-	{
-		$key = $this->getVariableKey($name);
-		if(!array_key_exists($key, $this->vars))
-		{
-			if(!array_key_exists($key, $_SESSION))
-			{
-				return $default;
-			}
-			$this->vars[$key] = unserialize($_SESSION[$key]);
-		}
-		return $this->vars[$key];
-	}
-
-	protected function setVariable($name, $value)
-	{
-		$key = $this->getVariableKey($name);
-		$this->vars[$key] = $value;
-		$_SESSION[$key] = serialize($value);
-	}
-
-	protected function deleteVariable($name)
-	{
-		$key = $this->getVariableKey($name);
-		unset($this->vars[$key]);
-		unset($_SESSION[$key]);
+		$this->persistance->destroy();
 	}
 
 	/**
@@ -200,15 +187,6 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		return $uri;
 	}
 
-	/**
-	 * Generates an almost safe key to store stuff in the PHP session without
-	 * collisioning with other variables.
-	 */
-	private function getVariableKey($name)
-	{
-		return md5(sprintf('m:%s:%s', $this->username, $name));
-	}
-
 	private function getAuthorizationURL($redirectURI, $scope = 'basic')
 	{
 		$params = http_build_query(array(
@@ -216,7 +194,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'redirect_uri' => $redirectURI,
 			'scope' => $scope,
 			'response_type' => 'code',
-			'state' => $this->getVariable('state'), // CSRF protection
+			'state' => $this->persistance->getVariable('state'), // CSRF protection
 			), '', '&');
 		return self::AUTHORIZATION_URL.'?'.$params;
 	}
@@ -232,24 +210,24 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function getAccessToken()
 	{
-		$token = $this->getVariable('access_token');
+		$token = $this->persistance->getVariable('access_token');
 		if($token)
 		{
 			return $token;
 		}
 		if(isset($_REQUEST['code']))
 		{
-			if(isset($_GET['state']) && $this->getVariable('state') && $_GET['state'] != $this->getVariable('state'))
+			if(isset($_GET['state']) && $this->persistance->getVariable('state') && $_GET['state'] != $this->persistance->getVariable('state'))
 			{
 				throw new \Maniaplanet\WebServices\Exception('CSRF attack protection failed');
 			}
-			$this->deleteVariable('state');
+			$this->persistance->deleteVariable('state');
 			$code = $_REQUEST['code'];
 			if($code)
 			{
 				$accessToken = $this->getAccessTokenFromCode($code,
-					$this->getVariable('redirect_uri'));
-				$this->setVariable('access_token', $accessToken);
+					$this->persistance->getVariable('redirect_uri'));
+				$this->persistance->setVariable('access_token', $accessToken);
 				return $accessToken;
 			}
 		}
@@ -310,8 +288,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$this->contentType = $contentType;
 		$this->serializeCallback = $serializeCallback;
 
-		$this->deleteVariable('redirect_uri');
-		$this->deleteVariable('code');
+		$this->persistance->deleteVariable('redirect_uri');
+		$this->persistance->deleteVariable('code');
 
 		return $response->access_token;
 	}
@@ -325,7 +303,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
 		$this->headers = array(sprintf('Authorization: Bearer %s',
-				$this->getVariable('access_token')));
+				$this->persistance->getVariable('access_token')));
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try
