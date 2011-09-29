@@ -211,8 +211,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			$code = $_REQUEST['code'];
 			if($code)
 			{
-				$accessToken = $this->getAccessTokenFromCode($code,
-					self::$persistance->getVariable('redirect_uri'));
+				$redirectURI = self::$persistance->getVariable('redirect_uri') ? : $this->getCurrentURI();
+				$accessToken = $this->getAccessTokenFromCode($code, $redirectURI);
 				self::$persistance->setVariable('access_token', $accessToken);
 				return $accessToken;
 			}
