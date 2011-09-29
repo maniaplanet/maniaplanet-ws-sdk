@@ -23,7 +23,7 @@ class Dedicated extends HTTPClient
 	 */
 	function get($login)
 	{
-		$this->execute('GET', '/dedicated/%s/', array($login));
+		return $this->execute('GET', '/dedicated/%s/', array($login));
 	}
 
 }
