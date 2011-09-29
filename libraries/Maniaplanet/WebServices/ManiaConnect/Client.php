@@ -67,14 +67,6 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		}
 
 		self::$persistance->init();
-
-		// State is for CSRF attacks
-		// See http://en.wikipedia.org/wiki/Cross-site_request_forgery
-		if(!self::$persistance->getVariable('state'))
-		{
-			self::$persistance->setVariable('state',
-				md5(pack('N3', mt_rand(), mt_rand(), mt_rand())));
-		}
 	}
 
 	/**
@@ -194,7 +186,6 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'redirect_uri' => $redirectURI,
 			'scope' => $scope,
 			'response_type' => 'code',
-			'state' => self::$persistance->getVariable('state'), // CSRF protection
 			), '', '&');
 		return self::AUTHORIZATION_URL.'?'.$params;
 	}
@@ -217,11 +208,6 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		}
 		if(isset($_REQUEST['code']))
 		{
-			if(isset($_GET['state']) && self::$persistance->getVariable('state') && $_GET['state'] != self::$persistance->getVariable('state'))
-			{
-				throw new \Maniaplanet\WebServices\Exception('CSRF attack protection failed');
-			}
-			self::$persistance->deleteVariable('state');
 			$code = $_REQUEST['code'];
 			if($code)
 			{
