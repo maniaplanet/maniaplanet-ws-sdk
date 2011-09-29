@@ -23,10 +23,45 @@ class ManiaHome extends HTTPClient
 		$this->manialink = $manialink;
 	}
 
+	/**
+	 * DO NOT USE IT
+	 * @deprecated
+	 */
 	function postNotification(Notification $n)
 	{
 		$n->senderName = $this->manialink;
 		return $this->execute('POST', '/maniahome/notification/', array($n));
+	}
+	
+	/**
+	 * Send a Notification visible to every player with the manialink in his
+	 * bookmarks
+	 * @param Notification $n
+	 */
+	function postPublicNotification(Notification $n)
+	{
+		$n->senderName = $this->manialink;
+		$this->execute('POST', '/maniahome/notification/public/', array($n));
+	}
+	
+	/**
+	 * Send a Notification to the specified player in receiverName property
+	 * @param Notification $n
+	 */
+	function postPersonalNotification(Notification $n)
+	{
+		$n->senderName = $this->manialink;
+		$this->execute('POST', '/maniahome/notification/personal/', array($n));
+	}
+	
+	/**
+	 * Send a private Notification to the player specified in receiverName property
+	 * @param Notification $n 
+	 */
+	function postPrivateNotification(Notification $n)
+	{
+		$n->senderName = $this->manialink;
+		$this->execute('POST', '/maniahome/notification/private/', array($n));
 	}
 
 }
