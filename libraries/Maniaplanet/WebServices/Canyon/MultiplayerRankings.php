@@ -21,6 +21,18 @@ class MultiplayerRankings extends \Maniaplanet\WebServices\HTTPClient
 				array($login));
 	}
 
+	function getWorld($offset = 0, $length = 10)
+	{
+		return $this->execute('GET', '/canyon/rankings/multiplayer/zone/',
+				array($offset, $length));
+	}
+
+	function getZone($path, $offset = 0, $length = 10)
+	{
+		return $this->execute('GET', '/canyon/rankings/multiplayer/zone/%s/',
+				array($path, $offset, $length));
+	}
+
 }
 
 ?>
