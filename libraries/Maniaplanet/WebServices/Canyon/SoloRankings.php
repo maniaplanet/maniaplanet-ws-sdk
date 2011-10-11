@@ -12,7 +12,7 @@
 
 namespace Maniaplanet\WebServices\Canyon;
 
-class MultiplayerRankings extends \Maniaplanet\WebServices\HTTPClient
+class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	function getPlayer($login)
