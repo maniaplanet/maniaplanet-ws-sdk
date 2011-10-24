@@ -24,7 +24,7 @@ class ManiaHome extends HTTPClient
 	}
 
 	/**
-	 * DO NOT USE IT
+	 * Please use the other methods which are more robust
 	 * @deprecated
 	 */
 	function postNotification(Notification $n)
@@ -32,10 +32,9 @@ class ManiaHome extends HTTPClient
 		$n->senderName = $this->manialink;
 		return $this->execute('POST', '/maniahome/notification/', array($n));
 	}
-	
+
 	/**
-	 * Send a Notification visible to every player with the manialink in his
-	 * bookmarks
+	 * Send a public notification to every player that bookmarked your Manialink.
 	 * @param Notification $n
 	 */
 	function postPublicNotification(Notification $n)
@@ -43,9 +42,11 @@ class ManiaHome extends HTTPClient
 		$n->senderName = $this->manialink;
 		$this->execute('POST', '/maniahome/notification/public/', array($n));
 	}
-	
+
 	/**
-	 * Send a Notification to the specified player in receiverName property
+	 * Send a public notification to a player (specified in 
+	 * Notification::$receiverName). The message will be prepended with its 
+	 * nickname and will be visible by all its buddies.
 	 * @param Notification $n
 	 */
 	function postPersonalNotification(Notification $n)
@@ -53,14 +54,16 @@ class ManiaHome extends HTTPClient
 		$n->senderName = $this->manialink;
 		$this->execute('POST', '/maniahome/notification/personal/', array($n));
 	}
-	
+
 	/**
-	 * Send a private Notification to the player specified in receiverName property
+	 * Send a private message to a player (specified in 
+	 * Notification::$receiverName).
 	 * @param Notification $n 
 	 */
 	function postPrivateNotification(Notification $n)
 	{
 		$n->senderName = $this->manialink;
+		$n->isPrivate = true;
 		$this->execute('POST', '/maniahome/notification/private/', array($n));
 	}
 
