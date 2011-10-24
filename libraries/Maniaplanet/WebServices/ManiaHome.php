@@ -17,6 +17,20 @@ class ManiaHome extends HTTPClient
 
 	protected $manialink;
 
+	/**
+	 * In the class the constructor is a bit different: there is a 3rd param to 
+	 * specify the Manialink from which the notifications are sent.
+	 * 
+	 * IMPORTANT NOTE:
+	 * 
+	 * The API username must be allowed to post notifications for the Manialink!
+	 * If you're the Manialink owner, go in ManiaHome's Manager to the "API user"
+	 * page to set it.
+	 * 
+	 * @param string $username
+	 * @param string $password
+	 * @param string $manialink 
+	 */
 	function __construct($username = null, $password = null, $manialink = null)
 	{
 		parent::__construct($username, $password);
