@@ -54,7 +54,7 @@ class ManiaHome extends HTTPClient
 	function postPublicNotification(Notification $n)
 	{
 		$n->senderName = $this->manialink;
-		$this->execute('POST', '/maniahome/notification/public/', array($n));
+		return $this->execute('POST', '/maniahome/notification/public/', array($n));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class ManiaHome extends HTTPClient
 	function postPersonalNotification(Notification $n)
 	{
 		$n->senderName = $this->manialink;
-		$this->execute('POST', '/maniahome/notification/personal/', array($n));
+		return $this->execute('POST', '/maniahome/notification/personal/', array($n));
 	}
 
 	/**
@@ -78,7 +78,7 @@ class ManiaHome extends HTTPClient
 	{
 		$n->senderName = $this->manialink;
 		$n->isPrivate = true;
-		$this->execute('POST', '/maniahome/notification/private/', array($n));
+		return $this->execute('POST', '/maniahome/notification/private/', array($n));
 	}
 
 }
