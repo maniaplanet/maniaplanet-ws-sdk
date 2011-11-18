@@ -152,7 +152,13 @@ abstract class HTTPClient
 			trigger_error('You must activate the JSON PHP extension.', E_USER_ERROR);
 		}
 
-		// TODO Try to load the credentials from a ManiaLib config class for easy inclusion in ManiaLib projects
+		// If you're using ManiaLib, credentials can be automatically loaded
+		if(!$username && !$password && class_exists('\ManiaLib\WebServices\Config'))
+		{
+			$config = \ManiaLib\WebServices\Config::getInstance();
+			$username = $config->username;
+			$password = $config->password;
+		}
 
 		$this->username = $username;
 		$this->password = $password;
