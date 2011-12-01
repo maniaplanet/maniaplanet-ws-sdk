@@ -34,6 +34,14 @@ class ManiaHome extends HTTPClient
 	function __construct($username = null, $password = null, $manialink = null)
 	{
 		parent::__construct($username, $password);
+
+		// If you're using ManiaLib, credentials can be automatically loaded
+		if(!$manialink && class_exists('\ManiaLib\Application\Config'))
+		{
+			$config = \ManiaLib\Application\Config::getInstance();
+			$manialink = $config->manialink;
+		}
+
 		$this->manialink = $manialink;
 	}
 
