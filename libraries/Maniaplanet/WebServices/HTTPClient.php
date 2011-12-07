@@ -164,6 +164,16 @@ abstract class HTTPClient
 		$this->password = $password;
 	}
 
+	function setAPIURL($URL)
+	{
+		$this->APIURL = $URL;
+	}
+	
+	function getAPIURL()
+	{
+		return $this->APIURL;
+	}
+	
 	/**
 	 * Executes a HTTP request on the API.
 	 * 
