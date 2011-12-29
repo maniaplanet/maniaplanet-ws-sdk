@@ -18,18 +18,18 @@ class ManiaHome extends HTTPClient
 	protected $manialink;
 
 	/**
-	 * In the class the constructor is a bit different: there is a 3rd param to 
+	 * In the class the constructor is a bit different: there is a 3rd param to
 	 * specify the Manialink from which the notifications are sent.
-	 * 
+	 *
 	 * IMPORTANT NOTE:
-	 * 
+	 *
 	 * The API username must be allowed to post notifications for the Manialink!
 	 * If you're the Manialink owner, go in ManiaHome's Manager to the "API user"
 	 * page to set it.
-	 * 
+	 *
 	 * @param string $username
 	 * @param string $password
-	 * @param string $manialink 
+	 * @param string $manialink
 	 */
 	function __construct($username = null, $password = null, $manialink = null)
 	{
@@ -66,8 +66,8 @@ class ManiaHome extends HTTPClient
 	}
 
 	/**
-	 * Send a public notification to a player (specified in 
-	 * Notification::$receiverName). The message will be prepended with its 
+	 * Send a public notification to a player (specified in
+	 * Notification::$receiverName). The message will be prepended with its
 	 * nickname and will be visible by all its buddies.
 	 * @param Notification $n
 	 */
@@ -78,15 +78,28 @@ class ManiaHome extends HTTPClient
 	}
 
 	/**
-	 * Send a private message to a player (specified in 
+	 * Send a private message to a player (specified in
 	 * Notification::$receiverName).
-	 * @param Notification $n 
+	 * @param Notification $n
 	 */
 	function postPrivateNotification(Notification $n)
 	{
 		$n->senderName = $this->manialink;
 		$n->isPrivate = true;
 		return $this->execute('POST', '/maniahome/notification/private/', array($n));
+	}
+
+	function postPrivateEvent(Event $e)
+	{
+		$e->senderName = $this->manialink;
+		$e->isPrivate = true;
+		return $this->execute('POST', '/maniahome/event/private/', array($e));
+	}
+
+	function postPublicEvent(Event $e)
+	{
+		$e->senderName = $this->manialink;
+		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
 
 }
