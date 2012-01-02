@@ -27,6 +27,10 @@ class Manialinks extends HTTPClient
 	 */
 	function get($code)
 	{
+		if(!$code)
+		{
+			throw new Exception('Invalid Manialink code');
+		}
 		return $this->execute('GET', '/manialinks/%s/', array($code));
 	}
 

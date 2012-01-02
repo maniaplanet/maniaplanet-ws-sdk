@@ -163,7 +163,7 @@ abstract class HTTPClient
 		$this->username = $username;
 		$this->password = $password;
 	}
-	
+
 	/**
 	 * Executes a HTTP request on the API.
 	 * 

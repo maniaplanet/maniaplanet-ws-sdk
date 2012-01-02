@@ -12,11 +12,17 @@
 
 namespace Maniaplanet\WebServices\Canyon;
 
+use Maniaplanet\WebServices\Exception;
+
 class MultiplayerRankings extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	function getPlayer($login)
 	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
 		return $this->execute('GET', '/canyon/rankings/multiplayer/player/%s/',
 				array($login));
 	}
@@ -29,6 +35,10 @@ class MultiplayerRankings extends \Maniaplanet\WebServices\HTTPClient
 
 	function getZone($path, $offset = 0, $length = 10)
 	{
+		if(!$path)
+		{
+			throw new Exception('Invalid zone path');
+		}
 		return $this->execute('GET', '/canyon/rankings/multiplayer/zone/%s/?offset=%d&length=%d',
 				array($path, $offset, $length));
 	}

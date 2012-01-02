@@ -14,6 +14,7 @@ namespace Maniaplanet\WebServices;
 
 class Players extends HTTPClient
 {
+
 	/**
 	 * @param string $login Login of a Maniaplanet account
 	 * @return object
@@ -21,8 +22,13 @@ class Players extends HTTPClient
 	 */
 	function get($login)
 	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
 		return $this->execute('GET', '/players/%s/', array($login));
 	}
+
 }
 
 ?>

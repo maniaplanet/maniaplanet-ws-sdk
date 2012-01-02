@@ -23,6 +23,10 @@ class Dedicated extends HTTPClient
 	 */
 	function get($login)
 	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
 		return $this->execute('GET', '/dedicated/%s/', array($login));
 	}
 

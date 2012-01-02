@@ -26,6 +26,10 @@ class Zones extends HTTPClient
 	 */
 	function get($id)
 	{
+		if(!$id)
+		{
+			throw new Exception('Invalid zone id');
+		}
 		return $this->execute('GET', '/zones/id/%s/', array($id));
 	}
 
@@ -37,6 +41,10 @@ class Zones extends HTTPClient
 	 */
 	function getByPath($path)
 	{
+		if(!$path)
+		{
+			throw new Exception('Invalid zone path');
+		}
 		return $this->execute('GET', '/zones/path/%s/', array($path));
 	}
 
@@ -68,6 +76,10 @@ class Zones extends HTTPClient
 	 */
 	function getChildren($id, $offset = 0, $length = 10, $sort = '', $order = '')
 	{
+		if(!$id)
+		{
+			throw new Exception('Invalid zone id');
+		}
 		return $this->execute('GET',
 				'/zones/id/%s/children/?offset=%s&length=%s&sort=%s&order=%s',
 				array($id, $offset, $length, $sort, $order));
@@ -86,6 +98,10 @@ class Zones extends HTTPClient
 	function getChildrenByPath($path, $offset = 0, $length = 10, $sort = '',
 		$order = '')
 	{
+		if(!$path)
+		{
+			throw new Exception('Invalid zone path');
+		}
 		return $this->execute('GET',
 				'/zones/path/%s/children/?offset=%s&length=%s&sort=%s&order=%s',
 				array($path, $offset, $length, $sort, $order));
@@ -99,6 +115,10 @@ class Zones extends HTTPClient
 	 */
 	function getId($path)
 	{
+		if(!$path)
+		{
+			throw new Exception('Invalid zone path');
+		}
 		return $this->execute('GET', '/zones/path/%s/id/', array($path));
 	}
 

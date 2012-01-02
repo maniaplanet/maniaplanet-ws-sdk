@@ -12,11 +12,17 @@
 
 namespace Maniaplanet\WebServices\Canyon;
 
+use Maniaplanet\WebServices\Exception;
+
 class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	function getPlayer($login)
 	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
 		return $this->execute('GET', '/canyon/rankings/solo/player/%s/', array($login));
 	}
 
@@ -28,18 +34,30 @@ class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 
 	function getZone($path, $offset = 0, $length = 10)
 	{
+		if(!$path)
+		{
+			throw new Exception('Invalid zone path');
+		}
 		return $this->execute('GET', '/canyon/rankings/solo/zone/%s/',
 				array($path, $offset, $length));
 	}
 
 	function getChallengeWorld($challengeuid, $offset = 0, $length = 10)
 	{
+		if(!$challengeuid)
+		{
+			throw new Exception('Invalid challenge UID');
+		}
 		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/',
 				array($challengeuid, $offset, $length));
 	}
 
 	function getChallengeZone($challengeuid, $path, $offset = 0, $length = 10)
 	{
+		if(!$challengeuid)
+		{
+			throw new Exception('Invalid challenge UID');
+		}
 		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/%s/',
 				array($challengeuid, $path, $offset, $length));
 	}
