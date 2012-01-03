@@ -1,33 +1,26 @@
 <?php
 /**
- * Maniaplanet Web Services SDK for PHP
- *
- * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
+ * ManiaLib - Lightweight PHP framework for Manialinks
+ * 
+ * @see         http://code.google.com/p/manialib/
  * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
- * @author      $Author$:
  * @version     $Revision$:
+ * @author      $Author$:
  * @date        $Date$:
  */
-define('APP_LIBRARIES_PATH', __DIR__.DIRECTORY_SEPARATOR);
-
-/**
- * ManiaLib class loader
- * It is registered with spl_autoload_register, so if you are already using the
- * __autoload() function don't forget to register it too in the spl autoloader 
- * stack.
- * 
- * @see http://php.net/manual/en/function.spl-autoload-register.php
- */
-function manialib_autoload($className)
+if(!defined('MANIALIB_APP_PATH'))
 {
-	$className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
-	$path = APP_LIBRARIES_PATH.$className.'.php';
-	if(file_exists($path))
-	{
-		require_once $path;
-	}
+	define('MANIALIB_APP_PATH', __DIR__.'/../');
 }
 
-spl_autoload_register('manialib_autoload');
+spl_autoload_register(function ($className)
+	{
+		$className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+		$path = __DIR__.DIRECTORY_SEPARATOR.$className.'.php';
+		if(file_exists($path))
+		{
+			require_once $path;
+		}
+	});
 ?>
