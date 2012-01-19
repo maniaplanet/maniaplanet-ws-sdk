@@ -1,21 +1,23 @@
 <?php
 /**
- * @copyright   Copyright (c) 2009-2012 NADEO (http://www.nadeo.com)
+ * Maniaplanet Web Services SDK for PHP
+ *
+ * @see		    http://code.google.com/p/maniaplanet-ws-sdk/
+ * @copyright   Copyright (c) 2009-2011 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
- * @version     $Revision$:
  * @author      $Author$:
+ * @version     $Revision$:
  * @date        $Date$:
  */
 
 namespace Maniaplanet\WebServices;
 
-class Paiements extends HTTPClient
+class Payments extends HTTPClient
 {
+
 	/**
-	 * Properties id, and message are optionnal to create Transaction
-	 * This method return the transaction thas has to be keep to be paied
 	 * @param Transaction $t
-	 * @return int
+	 * @return int ID of the created transaction
 	 */
 	function create(Transaction $t)
 	{
@@ -23,9 +25,8 @@ class Paiements extends HTTPClient
 	}
 
 	/**
-	 * Use this method to check if the paiement is made
 	 * @param int $id
-	 * @return bool
+	 * @return bool Whether the specified transaction was paid by the player
 	 */
 	function isPaid($id)
 	{
