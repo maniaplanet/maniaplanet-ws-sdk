@@ -28,7 +28,7 @@ class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 
 	function getWorld($offset = 0, $length = 10)
 	{
-		return $this->execute('GET', '/canyon/rankings/solo/zone/',
+		return $this->execute('GET', '/canyon/rankings/solo/zone/?offset=%d&length=%d',
 				array($offset, $length));
 	}
 
@@ -38,7 +38,7 @@ class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 		{
 			throw new Exception('Invalid zone path');
 		}
-		return $this->execute('GET', '/canyon/rankings/solo/zone/%s/',
+		return $this->execute('GET', '/canyon/rankings/solo/zone/%s/?offset=%d&length=%d',
 				array($path, $offset, $length));
 	}
 
@@ -48,7 +48,7 @@ class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 		{
 			throw new Exception('Invalid challenge UID');
 		}
-		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/',
+		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/?offset=%d&length=%d',
 				array($challengeuid, $offset, $length));
 	}
 
@@ -58,7 +58,7 @@ class SoloRankings extends \Maniaplanet\WebServices\HTTPClient
 		{
 			throw new Exception('Invalid challenge UID');
 		}
-		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/%s/',
+		return $this->execute('GET', '/canyon/rankings/solo/challenge/%s/%s/?offset=%d&length=%d',
 				array($challengeuid, $path, $offset, $length));
 	}
 
