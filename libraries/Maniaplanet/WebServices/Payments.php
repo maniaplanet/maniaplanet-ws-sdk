@@ -25,6 +25,17 @@ class Payments extends HTTPClient
 	}
 
 	/**
+	 * Pay a transaction without ingame validation
+	 * Works only to give coppers from your account
+	 * @param Transaction $t
+	 * @return int ID of the created transaction
+	 */
+	function pay(Transaction $t)
+	{
+		return $this->execute('POST', '/transactions/pay/', array($t));
+	}
+
+	/**
 	 * @param int $id
 	 * @return bool Whether the specified transaction was paid by the player
 	 */
