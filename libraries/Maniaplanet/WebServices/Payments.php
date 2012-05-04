@@ -28,7 +28,6 @@ class Payments extends HTTPClient
 	 * Pay a transaction without ingame validation
 	 * Works only to give coppers from your account
 	 * @param Transaction $t
-	 * @return int ID of the created transaction
 	 */
 	function pay(Transaction $t)
 	{
