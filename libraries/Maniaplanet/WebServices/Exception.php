@@ -24,7 +24,7 @@ class Exception extends \Exception
 	function __construct($message='', $code=0, $HTTPStatusCode=0,
 		$HTTPStatusMessage='')
 	{
-		parent::__construct($message, $code);
+		parent::__construct($message ? : $HTTPStatusMessage, $code ? : $HTTPStatusCode);
 
 		$this->HTTPStatusCode = $HTTPStatusCode;
 		$this->HTTPStatusMessage = $HTTPStatusMessage;

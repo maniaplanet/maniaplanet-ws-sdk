@@ -37,7 +37,7 @@ class Zones extends HTTPClient
 	 *
 	 * @param string $path A valid path, eg. "World|France"
 	 * @return object
-	 * @throws \Maniaplanet\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getByPath($path)
 	{
@@ -55,7 +55,7 @@ class Zones extends HTTPClient
 	 * @param string $sort Sort by: 'id', 'name'
 	 * @param int $order Order by 1 or -1
 	 * @return array Array of zones
-	 * @throws \Maniaplanet\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getAll($offset = 0, $length = 10, $sort = '', $order = '')
 	{
@@ -72,7 +72,7 @@ class Zones extends HTTPClient
 	 * @param string $sort Sort by: 'id', 'name'
 	 * @param int $order Order by 1 or -1
 	 * @return array Array of zones
-	 * @throws \Maniaplanet\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getChildren($id, $offset = 0, $length = 10, $sort = '', $order = '')
 	{
@@ -93,7 +93,7 @@ class Zones extends HTTPClient
 	 * @param string $sort Sort by: 'id', 'name'
 	 * @param int $order Order by 1 or -1
 	 * @return array Array of zones
-	 * @throws \Maniaplanet\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getChildrenByPath($path, $offset = 0, $length = 10, $sort = '',
 		$order = '')
@@ -111,7 +111,7 @@ class Zones extends HTTPClient
 	 *
 	 * @param string $path A valid path, eg. "World|France"
 	 * @return int
-	 * @throws \Maniaplanet\WebServices\Exception  
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getId($path)
 	{
@@ -120,6 +120,21 @@ class Zones extends HTTPClient
 			throw new Exception('Invalid zone path');
 		}
 		return $this->execute('GET', '/zones/path/%s/id/', array($path));
+	}
+
+	/**
+	 *
+	 * @param ind $id Integer identifier of the zone
+	 * @return int Number of players in this zone
+	 * @throws \Maniaplanet\WebServices\Exception
+	 */
+	function getPopulation($id)
+	{
+		if(!$id)
+		{
+			throw new Exception('Invalid zone id');
+		}
+		return $this->execute('GET', '/zones/id/%s/population/', array($id));
 	}
 
 }

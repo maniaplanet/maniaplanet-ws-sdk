@@ -18,22 +18,11 @@ namespace Maniaplanet\WebServices\ManiaConnect;
 abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 {
 	/**
-	 * OAuth2 Authorization endpoint URL
-	 * 
-	 * @var string
-	 */
-	const AUTHORIZATION_URL = 'https://ws.maniaplanet.com/oauth2/authorize/';
-	/**
-	 * Logout URL
-	 * 
-	 * @var string
-	 */
-	const LOGOUT_URL = 'https://ws.maniaplanet.com/oauth2/authorize/logout/';
-	/**
 	 * Path for the OAuth2 Token Endpoint on our API
 	 * 
 	 * @var string
 	 */
+
 	const TOKEN_PATH = '/oauth2/token/';
 
 	/**
@@ -95,7 +84,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLogoutURL($redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		return self::LOGOUT_URL.'?'.http_build_query(array('redirect_uri' => $redirectURI),
+		return \Maniaplanet\WebServices\Config::getInstance()->logoutURL.'?'.http_build_query(array('redirect_uri' => $redirectURI),
 				'', '&');
 	}
 
@@ -118,8 +107,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function getCurrentURI()
 	{
-		$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://'
-				: 'http://';
+		$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
 		$current_uri = $protocol.$_SERVER['HTTP_HOST'].$this->getRequestURI();
 		$parts = parse_url($current_uri);
 
@@ -137,8 +125,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 
 		// Use port if non default.
 		$port = isset($parts['port']) &&
-			(($protocol === 'http://' && $parts['port'] !== 80) || ($protocol === 'https://' && $parts['port'] !== 443))
-				? ':'.$parts['port'] : '';
+			(($protocol === 'http://' && $parts['port'] !== 80) || ($protocol === 'https://' && $parts['port'] !== 443)) ? ':'.$parts['port']
+				: '';
 
 		// Rebuild.
 		return $protocol.$parts['host'].$port.$parts['path'].$query;
@@ -187,7 +175,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'scope' => $scope,
 			'response_type' => 'code',
 			), '', '&');
-		return self::AUTHORIZATION_URL.'?'.$params;
+		return \Maniaplanet\WebServices\Config::getInstance()->loginURL.'?'.$params;
 	}
 
 	/**
@@ -288,8 +276,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
-		$this->headers = array(sprintf('Authorization: Bearer %s',
-				self::$persistance->getVariable('access_token')));
+		$this->headers = array(sprintf('Authorization: Bearer %s', self::$persistance->getVariable('access_token')));
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try

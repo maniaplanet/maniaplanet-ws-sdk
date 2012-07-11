@@ -18,7 +18,7 @@ class Players extends HTTPClient
 	/**
 	 * @param string $login Login of a Maniaplanet account
 	 * @return object
-	 * @throws \Maniaplanet\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function get($login)
 	{
@@ -27,6 +27,21 @@ class Players extends HTTPClient
 			throw new Exception('Invalid login');
 		}
 		return $this->execute('GET', '/players/%s/', array($login));
+	}
+
+	/**
+	 * List all teams contracts of the given player
+	 * @param string $login Login of a Maniaplanet account
+	 * @return object
+	 * @throws Exception
+	 */
+	function getTeams($login)
+	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
+		return $this->execute('GET', '/players/%s/teams/', array($login));
 	}
 
 }

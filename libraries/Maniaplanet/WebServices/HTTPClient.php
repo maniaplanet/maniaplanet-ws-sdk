@@ -13,12 +13,12 @@
 namespace Maniaplanet\WebServices;
 
 /**
- * HTTP client used to requests on the Maniaplanet Web Services API. 
+ * HTTP client used to requests on the Maniaplanet Web Services API.
  * Service classes of the SDK extends this base class.
  */
 abstract class HTTPClient
 {
-	const VERSION = '1.5';
+	const VERSION = '3.0';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',
@@ -59,63 +59,63 @@ abstract class HTTPClient
 
 	/**
 	 * URL of the Web Services API
-	 * 
+	 *
 	 * @var string
 	 */
-	protected $APIURL = 'https://ws.maniaplanet.com';
+	protected $APIURL;
 
 	/**
 	 * HTTP username used to authenticate the client via HTTP Basic Authentication
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $username;
 
 	/**
 	 * HTTP password used to authenticate the client via HTTP Basic Authentication
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $password;
 
 	/**
 	 * Whether to use HTTP Basic authentication. Enabled by default
-	 * 
+	 *
 	 * @var bool
 	 */
 	protected $enableAuth = true;
 
 	/**
 	 * Whether to throw exceptions or not. Default is true except in the ManiaHome class.
-	 * 
+	 *
 	 * @var bool
 	 */
 	protected $throwExceptions = true;
 
 	/**
 	 * Last exception if throwExceptions is set to false
-	 * 
+	 *
 	 * @var \Maniaplanet\WebServices\Exception
 	 */
 	public $lastException;
 
 	/**
 	 * Content-Type HTTP Header
-	 * 
+	 *
 	 * @var callback
 	 */
 	protected $contentType = 'application/json';
 
 	/**
 	 * Accept HTTP header
-	 * 
+	 *
 	 * @var callback
 	 */
 	protected $accept = 'application/json';
 
 	/**
 	 * Callback for serializing data
-	 * 
+	 *
 	 * @var callback
 	 */
 	protected $serializeCallback = 'json_encode';
@@ -127,7 +127,7 @@ abstract class HTTPClient
 
 	/**
 	 * Additional headers to be sent with the requests
-	 * 
+	 *
 	 * @var array[string]
 	 */
 	protected $headers = array();
@@ -135,9 +135,9 @@ abstract class HTTPClient
 	/**
 	 * Default constructor. Children classes should, if they need to override it,
 	 * keep the same first two parameters (the API credentials) to keep the usage of the SDK simple.
-	 * 
+	 *
 	 * You can manage your API credentials at http://developers.trackmania.com
-	 * 
+	 *
 	 * @param string $username API username
 	 * @param string $password API password
 	 */
@@ -152,8 +152,10 @@ abstract class HTTPClient
 			trigger_error('You must activate the JSON PHP extension.', E_USER_ERROR);
 		}
 
+		$this->APIURL = Config::getInstance()->URL;
+		
 		// If you're using ManiaLib, credentials can be automatically loaded
-		if(!$username && !$password && class_exists('\ManiaLib\WebServices\Config'))
+		if(!$username && !$password)
 		{
 			$config = \ManiaLib\WebServices\Config::getInstance();
 			$username = $config->username;
@@ -166,14 +168,14 @@ abstract class HTTPClient
 
 	/**
 	 * Executes a HTTP request on the API.
-	 * 
-	 * The usage of the $ressource and $params parameters is similar to the use 
-	 * of the sprintf() function. You can PUT sprintf() placeholders in the 
-	 * $ressource, and the first elements of the $params array will be 
-	 * urlencode'd and sprintf()'ed in the ressource. The last element of the 
-	 * $params array will be serialized and used for request body if using 
+	 *
+	 * The usage of the $ressource and $params parameters is similar to the use
+	 * of the sprintf() function. You can PUT sprintf() placeholders in the
+	 * $ressource, and the first elements of the $params array will be
+	 * urlencode'd and sprintf()'ed in the ressource. The last element of the
+	 * $params array will be serialized and used for request body if using
 	 * POST or PUT methods.
-	 * 
+	 *
 	 * Examples:
 	 * <code>
 	 * $obj->execute('GET', '/stuff/%s/', array('foobar')); // => /stuff/foobar/
@@ -182,7 +184,7 @@ abstract class HTTPClient
 	 * $obj->execute('POST', '/stuff/', array($someDataToPost)); // => /stuff/
 	 * $obj->execute('POST', '/stuff/%s/', array('foobar', $someDataToPost)); // => /stuff/foobar/
 	 * </code>
-	 * 
+	 *
 	 * @param string $method The HTTP method to use. Only GET, POST, PUT and DELETE are supported for now.
 	 * @param string $ressource The ressource (path after the URL + query string)
 	 * @param array $params The parameters
