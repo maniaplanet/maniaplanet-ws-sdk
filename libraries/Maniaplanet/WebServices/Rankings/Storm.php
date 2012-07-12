@@ -12,7 +12,7 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
-class Storm extends \Maniaplanet\WebServices\Rankings\Rankings
+class Storm extends \Maniaplanet\WebServices\HTTPClient
 {
 	function getMultiplayerPlayer($login)
 	{

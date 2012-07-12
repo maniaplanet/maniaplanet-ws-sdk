@@ -12,7 +12,7 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
-class Canyon extends \Maniaplanet\WebServices\Rankings\Rankings
+class Canyon extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	// MULTIPLAYER

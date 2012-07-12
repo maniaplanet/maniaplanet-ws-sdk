@@ -12,7 +12,7 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
-class Title extends \Maniaplanet\WebServices\Rankings\Rankings
+class Title extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	// MULTIPLAYER
