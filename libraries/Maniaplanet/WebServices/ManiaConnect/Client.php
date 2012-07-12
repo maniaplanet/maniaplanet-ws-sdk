@@ -25,8 +25,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 
 	const TOKEN_PATH = '/oauth2/token/';
 
-	protected $loginURL = 'http://ws.maniaplanet.com/oauth2/authorize/';
-	protected $logoutURL = 'http://ws.maniaplanet.com/oauth2/authorize/logout/';
+	protected $loginURL = 'https://ws.maniaplanet.com/oauth2/authorize/';
+	protected $logoutURL = 'https://ws.maniaplanet.com/oauth2/authorize/logout/';
 
 	/**
 	 * An implementation of the Peristance interface to store data (such as 
