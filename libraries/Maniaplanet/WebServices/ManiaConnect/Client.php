@@ -25,6 +25,9 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 
 	const TOKEN_PATH = '/oauth2/token/';
 
+	protected $loginURL = 'http://ws.maniaplanet.com/oauth2/authorize/';
+	protected $logoutURL = 'http://ws.maniaplanet.com/oauth2/authorize/logout/';
+
 	/**
 	 * An implementation of the Peristance interface to store data (such as 
 	 * access tokens) between requests. Default implementation is using PHP
@@ -84,7 +87,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	function getLogoutURL($redirectURI = null)
 	{
 		$redirectURI = $redirectURI ? : $this->getCurrentURI();
-		return \Maniaplanet\WebServices\Config::getInstance()->logoutURL.'?'.http_build_query(array('redirect_uri' => $redirectURI),
+		return $this->logoutURL.'?'.http_build_query(array('redirect_uri' => $redirectURI),
 				'', '&');
 	}
 
@@ -175,7 +178,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			'scope' => $scope,
 			'response_type' => 'code',
 			), '', '&');
-		return \Maniaplanet\WebServices\Config::getInstance()->loginURL.'?'.$params;
+		return $this->loginURL.'?'.$params;
 	}
 
 	/**

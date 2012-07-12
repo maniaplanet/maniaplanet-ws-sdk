@@ -62,7 +62,7 @@ abstract class HTTPClient
 	 *
 	 * @var string
 	 */
-	protected $APIURL;
+	protected $APIURL = 'https://ws.maniaplanet.com';
 
 	/**
 	 * HTTP username used to authenticate the client via HTTP Basic Authentication
@@ -152,8 +152,6 @@ abstract class HTTPClient
 			trigger_error('You must activate the JSON PHP extension.', E_USER_ERROR);
 		}
 
-		$this->APIURL = Config::getInstance()->URL;
-		
 		// If you're using ManiaLib, credentials can be automatically loaded
 		if(!$username && !$password)
 		{
