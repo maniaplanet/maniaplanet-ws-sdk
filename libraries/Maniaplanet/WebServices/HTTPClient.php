@@ -18,7 +18,7 @@ namespace Maniaplanet\WebServices;
  */
 abstract class HTTPClient
 {
-	const VERSION = '3.0.4';
+	const VERSION = '3.0.5';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',
@@ -153,7 +153,7 @@ abstract class HTTPClient
 		}
 
 		// If you're using ManiaLib, credentials can be automatically loaded
-		if(!$username && !$password)
+		if(!$username && !$password && class_exists('\ManiaLib\WebServices\Config'))
 		{
 			$config = \ManiaLib\WebServices\Config::getInstance();
 			$username = $config->username;
