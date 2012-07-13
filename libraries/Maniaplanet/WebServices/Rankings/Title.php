@@ -22,7 +22,7 @@ class Title extends \Maniaplanet\WebServices\HTTPClient
 		{
 			throw new Exception('Invalid login');
 		}
-		return $this->execute('GET', '/titles/rankings/multiplayer/player/%s/?title=%s', array($title, $login));
+		return $this->execute('GET', '/titles/rankings/multiplayer/player/%s/?title=%s', array($login, $title));
 	}
 
 	function getMultiplayerWorld($title, $offset = 0, $length = 100)
