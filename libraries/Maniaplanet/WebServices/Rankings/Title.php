@@ -12,6 +12,8 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
+use Maniaplanet\WebServices\Exception;
+
 class Title extends \Maniaplanet\WebServices\HTTPClient
 {
 

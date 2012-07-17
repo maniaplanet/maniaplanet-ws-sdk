@@ -12,6 +12,9 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
+use Maniaplanet\WebServices\Exception;
+
+
 class Storm extends \Maniaplanet\WebServices\HTTPClient
 {
 	function getMultiplayerPlayer($login)

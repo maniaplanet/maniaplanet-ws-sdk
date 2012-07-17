@@ -12,6 +12,9 @@
 
 namespace Maniaplanet\WebServices\Rankings;
 
+use Maniaplanet\WebServices\Exception;
+
+
 class Canyon extends \Maniaplanet\WebServices\HTTPClient
 {
 
