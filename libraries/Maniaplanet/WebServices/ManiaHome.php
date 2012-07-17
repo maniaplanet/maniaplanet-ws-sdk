@@ -102,6 +102,16 @@ class ManiaHome extends HTTPClient
 		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
 
+	/**
+	 *
+	 * @param int $notificationId
+	 * @return int number of parameters
+	 */
+	function getCommentsCount($notificationId)
+	{
+		return $this->execute('GET', sprintf('/maniahome/notifications/%d/comments/count/',$notificationId));
+	}
+
 }
 
 ?>
