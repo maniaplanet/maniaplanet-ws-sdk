@@ -9,7 +9,7 @@
 
 namespace Maniaplanet\WebServices\ManiaHome;
 
-class Comments extends Maniaplanet\WebServices\HTTPClient
+class Comments extends \Maniaplanet\WebServices\HTTPClient
 {
 
 	/**
