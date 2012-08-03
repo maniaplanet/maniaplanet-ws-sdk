@@ -52,10 +52,10 @@ class ManiaHome
 			{
 				return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
 			}
-			return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+			return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
 					$n->group, $n->priority);
 		}
-		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
 				$n->group, $n->priority);
 	}
 
@@ -66,7 +66,7 @@ class ManiaHome
 	 */
 	function postPublicNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
 				$n->group, $n->priority);
 	}
 
@@ -79,7 +79,7 @@ class ManiaHome
 	 */
 	function postPersonalNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
 				$n->group, $n->priority);
 	}
 
