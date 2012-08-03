@@ -12,6 +12,9 @@
 
 namespace Maniaplanet\WebServices;
 
+/**
+ * @deprecated since version 3.1.0
+ */
 class ManiaHome
 {
 
@@ -20,18 +23,7 @@ class ManiaHome
 	protected $manialinkPublisher;
 
 	/**
-	 * In the class the constructor is a bit different: there is a 3rd param to
-	 * specify the Manialink from which the notifications are sent.
-	 *
-	 * IMPORTANT NOTE:
-	 *
-	 * The API username must be allowed to post notifications for the Manialink!
-	 * If you're the Manialink owner, go in ManiaHome's Manager to the "API user"
-	 * page to set it.
-	 *
-	 * @param string $username
-	 * @param string $password
-	 * @param string $manialink
+	 * @deprecated since version 3.1.0
 	 */
 	function __construct($username = null, $password = null, $manialink = null)
 	{
@@ -50,7 +42,7 @@ class ManiaHome
 
 	/**
 	 * Please use the other methods which are more robust
-	 * @deprecated
+	 * @deprecated since version 3.1.0
 	 */
 	function postNotification(Notification $n)
 	{
@@ -70,6 +62,7 @@ class ManiaHome
 	/**
 	 * Send a public notification to every player that bookmarked your Manialink.
 	 * @param Notification $n
+	 * @deprecated since version 3.1.0
 	 */
 	function postPublicNotification(Notification $n)
 	{
@@ -82,6 +75,7 @@ class ManiaHome
 	 * Notification::$receiverName). The message will be prepended with its
 	 * nickname and will be visible by all its buddies.
 	 * @param Notification $n
+	 * @deprecated since version 3.1.0
 	 */
 	function postPersonalNotification(Notification $n)
 	{
@@ -93,17 +87,24 @@ class ManiaHome
 	 * Send a private message to a player (specified in
 	 * Notification::$receiverName).
 	 * @param Notification $n
+	 * @deprecated since version 3.1.0
 	 */
 	function postPrivateNotification(Notification $n)
 	{
 		return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
 	}
 
+	/**
+	 * @deprecated since version 3.1.0
+	 */
 	function postPrivateEvent(Event $e)
 	{
 		return $this->manialinkPublisher->postPrivateEvent($e->message, $e->eventDate, $e->receiverName, $e->link);
 	}
 
+	/**
+	 * @deprecated since version 3.1.0
+	 */
 	function postPublicEvent(Event $e)
 	{
 		return $this->manialinkPublisher->postPublicEvent($e->message, $e->eventDate, $e->link);
@@ -115,6 +116,7 @@ class ManiaHome
 	 *
 	 * @param int $notificationId
 	 * @return int number of parameters
+	 * @deprecated since version 3.1.0
 	 */
 	function getCommentsCount($notificationId)
 	{
