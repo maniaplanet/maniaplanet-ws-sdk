@@ -13,77 +13,10 @@
 namespace Maniaplanet\WebServices;
 
 /**
- * Container object to send notifications to ManiaHome
+ * @deprecated
  */
-class Notification
+class Notification extends ManiaHome\Notification
 {
-
-	/**
-	 * Manialink that sends the notification. You don't need to set that as 
-	 * the ManiaHome class will automatically set it for you when you send a 
-	 * notification.
-	 * @var string 
-	 */
-	public $senderName;
-
-	/**
-	 * The receiver of the notification. It can either be a Maniaplanet login or
-	 * null.
-	 * @var string 
-	 */
-	public $receiverName;
-
-	/**
-	 * The message itself. If you send a public notification to a player, the 
-	 * message will be prepended with its nickname. Max length is 255 chars, you
-	 * can use Maniaplanet special chars.
-	 * @var string 
-	 */
-	public $message;
-
-	/**
-	 * (optional)
-	 * Link when the player clicks on the notification. Has to be a Manialink, 
-	 * not a Web URL.
-	 * @var string 
-	 */
-	public $link;
-
-	/**
-	 * (optional)
-	 * Whether the Notification is private or not.
-	 * @var boolean 
-	 */
-	public $isPrivate;
-
-	/**
-	 * (optional)
-	 * Icon style (from the Manialink styles)
-	 * @var string 
-	 */
-	public $iconStyle;
-
-	/**
-	 * (optional)
-	 * Icon substyle (from the Manialink styles)
-	 * @var string 
-	 */
-	public $iconSubStyle;
-
-	/**
-	 * (optional)
-	 * String used to group notifications. You shouldn't need to use that
-	 * @var string
-	 */
-	public $group;
-
-	/**
-	 * (optional)
-	 * Integer used to group notifications. You shouldn't need to use that
-	 * @var integer
-	 */
-	public $priority;
-
 }
 
 ?>

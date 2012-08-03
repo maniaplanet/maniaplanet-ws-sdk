@@ -12,10 +12,12 @@
 
 namespace Maniaplanet\WebServices;
 
-class ManiaHome extends HTTPClient
+class ManiaHome
 {
 
-	protected $manialink;
+	protected $username;
+	protected $password;
+	protected $manialinkPublisher;
 
 	/**
 	 * In the class the constructor is a bit different: there is a 3rd param to
@@ -33,7 +35,6 @@ class ManiaHome extends HTTPClient
 	 */
 	function __construct($username = null, $password = null, $manialink = null)
 	{
-		parent::__construct($username, $password);
 
 		// If you're using ManiaLib, credentials can be automatically loaded
 		if(!$manialink && class_exists('\ManiaLib\Application\Config'))
@@ -42,7 +43,9 @@ class ManiaHome extends HTTPClient
 			$manialink = $config->manialink;
 		}
 
-		$this->manialink = $manialink;
+		$this->username = $username;
+		$this->password = $password;
+		$this->manialinkPublisher = new ManiaHome\ManialinkPublisher($username, $password, $manialink);
 	}
 
 	/**
@@ -51,8 +54,17 @@ class ManiaHome extends HTTPClient
 	 */
 	function postNotification(Notification $n)
 	{
-		$n->senderName = $this->manialink;
-		return $this->execute('POST', '/maniahome/notification/', array($n));
+		if($n->receiverName)
+		{
+			if($n->isPrivate)
+			{
+				return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
+			}
+			return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+					$n->group, $n->priority);
+		}
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+				$n->group, $n->priority);
 	}
 
 	/**
@@ -61,8 +73,8 @@ class ManiaHome extends HTTPClient
 	 */
 	function postPublicNotification(Notification $n)
 	{
-		$n->senderName = $this->manialink;
-		return $this->execute('POST', '/maniahome/notification/public/', array($n));
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+				$n->group, $n->priority);
 	}
 
 	/**
@@ -73,8 +85,8 @@ class ManiaHome extends HTTPClient
 	 */
 	function postPersonalNotification(Notification $n)
 	{
-		$n->senderName = $this->manialink;
-		return $this->execute('POST', '/maniahome/notification/personal/', array($n));
+		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubstyle,
+				$n->group, $n->priority);
 	}
 
 	/**
@@ -84,20 +96,17 @@ class ManiaHome extends HTTPClient
 	 */
 	function postPrivateNotification(Notification $n)
 	{
-		$n->senderName = $this->manialink;
-		$n->isPrivate = true;
-		return $this->execute('POST', '/maniahome/notification/private/', array($n));
+		return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
 	}
 
 	function postPrivateEvent(Event $e)
 	{
-		$e->senderName = $this->manialink;
-		$e->isPrivate = true;
-		return $this->execute('POST', '/maniahome/event/private/', array($e));
+		return $this->manialinkPublisher->postPrivateEvent($e->message, $e->eventDate, $e->receiverName, $e->link);
 	}
 
 	function postPublicEvent(Event $e)
 	{
+		return $this->manialinkPublisher->postPublicEvent($e->message, $e->eventDate, $e->link);
 		$e->senderName = $this->manialink;
 		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
@@ -109,7 +118,8 @@ class ManiaHome extends HTTPClient
 	 */
 	function getCommentsCount($notificationId)
 	{
-		return $this->execute('GET', sprintf('/maniahome/notifications/%d/comments/count/',$notificationId));
+		$service = new ManiaHome\Comments($this->username,$this->password);
+		return $service->count($notificationId);
 	}
 
 }
