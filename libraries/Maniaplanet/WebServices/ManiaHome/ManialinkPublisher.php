@@ -54,8 +54,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param int $priority Integer used to group notifications. You shouldn't need to use that.
 	 * @return int
 	 */
-	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null, $group = null,
-		$priority = null)
+	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null)
 	{
 		$n = new Notification();
 		$n->senderName = $this->manialink;
@@ -79,12 +78,9 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @param string $iconStyle Icon style (from the Manialink styles)
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
-	 * @param string $group String used to group notifications. You shouldn't need to use that.
-	 * @param int $priority Integer used to group notifications. You shouldn't need to use that.
 	 * @return int
 	 */
-	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null,
-		$group = null, $priority = null)
+	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null)
 	{
 		$n = new Notification();
 		$n->senderName = $this->manialink;

@@ -52,11 +52,9 @@ class ManiaHome
 			{
 				return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
 			}
-			return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
-					$n->group, $n->priority);
+			return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle);
 		}
-		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
-				$n->group, $n->priority);
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle);
 	}
 
 	/**
@@ -66,8 +64,7 @@ class ManiaHome
 	 */
 	function postPublicNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
-				$n->group, $n->priority);
+		return $this->manialinkPublisher->postPublicNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle);
 	}
 
 	/**
@@ -79,8 +76,7 @@ class ManiaHome
 	 */
 	function postPersonalNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle,
-				$n->group, $n->priority);
+		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle);
 	}
 
 	/**
@@ -91,7 +87,7 @@ class ManiaHome
 	 */
 	function postPrivateNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName);
+		return $this->manialinkPublisher->postPrivateNotification($n->message, $n->receiverName, $n->link);
 	}
 
 	/**
@@ -108,8 +104,6 @@ class ManiaHome
 	function postPublicEvent(Event $e)
 	{
 		return $this->manialinkPublisher->postPublicEvent($e->message, $e->eventDate, $e->link);
-		$e->senderName = $this->manialink;
-		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
 
 	/**
