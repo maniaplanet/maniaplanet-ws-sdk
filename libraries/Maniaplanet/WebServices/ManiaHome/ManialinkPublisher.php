@@ -44,14 +44,12 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 
 	/**
 	 * Send a public notification to every player that bookmarked your Manialink.
-	 * @param string $message The message itself. If you send a public notification to a player, the 
+	 * @param string $message The message itself. If you send a public notification to a player, the
 	 * message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param string $link  Link when the player clicks on the notification
 	 * @param string $iconStyle Icon style (from the Manialink styles)
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
-	 * @param string $group String used to group notifications. You shouldn't need to use that.
-	 * @param int $priority Integer used to group notifications. You shouldn't need to use that.
 	 * @return int
 	 */
 	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null)
@@ -62,8 +60,6 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->link = $link;
 		$n->iconStyle = $iconStyle;
 		$n->iconSubStyle = $iconSubstyle;
-		$n->group = $group;
-		$n->priority = $priority;
 		return $this->execute('POST', '/maniahome/notification/public/', array($n));
 	}
 
@@ -71,7 +67,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * Send a public notification to a player (specified in
 	 * Notification::$receiverName). The message will be prepended with its
 	 * nickname and will be visible by all its buddies.
-	 * @param string $message The message itself. If you send a public notification to a player, the 
+	 * @param string $message The message itself. If you send a public notification to a player, the
 	 * message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param string $receiverName The receiver of the notification.
@@ -88,8 +84,6 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->link = $link;
 		$n->iconStyle = $iconStyle;
 		$n->iconSubStyle = $iconSubstyle;
-		$n->group = $group;
-		$n->priority = $priority;
 		$n->receiverName = $receiverName;
 		return $this->execute('POST', '/maniahome/notification/personal/', array($n));
 	}
@@ -97,7 +91,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	/**
 	 * Send a private message to a player (specified in
 	 * Notification::$receiverName).
-	 * @param string $message The message itself. If you send a public notification to a player, the 
+	 * @param string $message The message itself. If you send a public notification to a player, the
 	 * message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param string $receiverName The receiver of the notification.
@@ -118,8 +112,8 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	/**
 	 * Create an event visible only by the receivers. To create an event for many players just give an array of login as
 	 * receiverName.
-	 * 
-	 * @param string $message The message itself. If you send a public notification to a player, the 
+	 *
+	 * @param string $message The message itself. If you send a public notification to a player, the
 	 * message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param string|string[] $receiverName The receiver(s) of the notification.
@@ -141,7 +135,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 
 	/**
 	 * Create an event visible by all players who bookmarked your Manialink
-	 * @param string $message The message itself. If you send a public notification to a player, the 
+	 * @param string $message The message itself. If you send a public notification to a player, the
 	 * @param string message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param int $eventDate The UNIX Timestamp of the date of the event
