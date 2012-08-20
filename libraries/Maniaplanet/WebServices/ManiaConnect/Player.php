@@ -119,6 +119,18 @@ class Player extends Client
 	}
 
 	/**
+	 * Get team's whose player is admin
+	 *
+	 * scope needed : teams
+	 *
+	 * @return array[object]
+	 */
+	function getTeamsAdmin()
+	{
+		return $this->executeOAuth2('GET', '/player/teams/admin/');
+	}
+
+	/**
 	 * scope needed : titles
 	 */
 	function getOwnedTitles()
