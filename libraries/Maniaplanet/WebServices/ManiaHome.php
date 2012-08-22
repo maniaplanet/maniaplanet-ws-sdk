@@ -76,7 +76,8 @@ class ManiaHome
 	 */
 	function postPersonalNotification(Notification $n)
 	{
-		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->link, $n->iconStyle, $n->iconSubStyle);
+		return $this->manialinkPublisher->postPersonalNotification($n->message, $n->receiverName, $n->link, $n->iconStyle,
+				$n->iconSubStyle);
 	}
 
 	/**
@@ -114,7 +115,7 @@ class ManiaHome
 	 */
 	function getCommentsCount($notificationId)
 	{
-		$service = new ManiaHome\Comments($this->username,$this->password);
+		$service = new ManiaHome\Comments($this->username, $this->password);
 		return $service->count($notificationId);
 	}
 
