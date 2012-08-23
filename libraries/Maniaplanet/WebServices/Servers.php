@@ -59,7 +59,15 @@ class Servers extends HTTPClient
 		}
 		return $this->execute('GET', '/servers/%s/favorited/', array($login));
 	}
-
+	
+	function getReportAbuses($login)
+	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
+		return $this->execute('GET', '/report-abuse/list/%s/',array($login));
+	}
 
 }
 
