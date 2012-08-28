@@ -1,6 +1,6 @@
 <?php
-$apiUsername = 'localhost';
-$apiPassword = 'm4wwKjCS1JY61U2';
+$apiUsername = '';
+$apiPassword = '';
 ?>
 
 <html>
