@@ -93,6 +93,18 @@ class Player extends Client
 	{
 		return $this->executeOAuth2('GET', '/player/dedicated/');
 	}
+	
+	/**
+	 * Gets the list of server loing's report abuses
+	 * 
+	 * Scope needed: dedicated
+	 * 
+	 * @return array[object]
+	 */
+	function getReportAbuses($serverLogin)
+	{
+		return $this->executeOAuth2('GET', '/player/dedicated/%s/reportAbuse/',array($serverLogin));
+	}
 
 	/**
 	 * Gets the list of the player's registered Manialinks.
