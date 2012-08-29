@@ -15,6 +15,10 @@ namespace Maniaplanet\WebServices;
 class Servers extends HTTPClient
 {
 
+	const ALL_MODES = -1;
+	const OFFICIAL_MODES = -2;
+	const CUSTOM_MODES = -3;
+
 	/**
 	 * Returns information about the specified server
 	 *
@@ -85,7 +89,7 @@ class Servers extends HTTPClient
 	 * hideFull		bool	If true, full servers will not be displayed
 	 * visibility	string	It can take one of those 3 values: all, public or private
 	 * zone			string	The path to a zone, for example: World|France. It will display every server in France subzones
-	 * mode			mixed	it can be one of the GameMode class constant, or directly the game mode name itself (TimeAttack, Melee, ...)
+	 * mode			mixed	it can be one of class constant, or directly the game mode name itself (TimeAttack, Melee, ...)
 	 * offset		int		The offset in the list where the results will start
 	 * length		int		Number of elements returned
 	 * @return object[]
