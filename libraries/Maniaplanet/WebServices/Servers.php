@@ -82,8 +82,8 @@ class Servers extends HTTPClient
 	/**
 	 * @param array[] $filters This should be an associative array, it can contain any of the following values with the 
 	 * correct key:
-	 * environment Canyon or Storm
-	 * title the Title idString
+	 * environment string Canyon or Storm
+	 * title string the Title idString
 	 * playersMin	int		Minimum number of player connected on the server
 	 * playersMax	int		Maximum number of player connected on the server
 	 * hideFull		bool	If true, full servers will not be displayed
