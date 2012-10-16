@@ -31,14 +31,14 @@ class Teams extends HTTPClient
 	 * @return object
 	 * @throws Exception
 	 */
-	function getPlayers($id)
+	function getContracts($id)
 	{
 		if (!$id)
 		{
 			throw new Exception('Invalid id');
 		}
 
-		return $this->execute('GET', '/teams/%d/players/', array($id));
+		return $this->execute('GET', '/teams/%d/contracts/', array($id));
 	}
 
 

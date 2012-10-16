@@ -125,9 +125,9 @@ class Player extends Client
 	 *
 	 * @return array[object]
 	 */
-	function getTeams()
+	function getContracts()
 	{
-		return $this->executeOAuth2('GET', '/player/teams/');
+		return $this->executeOAuth2('GET', '/player/contracts/');
 	}
 
 	/**
@@ -137,9 +137,9 @@ class Player extends Client
 	 *
 	 * @return array[object]
 	 */
-	function getTeamsAdmin()
+	function getTeams()
 	{
-		return $this->executeOAuth2('GET', '/player/teams/admin/');
+		return $this->executeOAuth2('GET', '/player/teams/');
 	}
 
 	/**
