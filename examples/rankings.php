@@ -18,24 +18,25 @@ $password = trim(fgets(STDIN));
 
 $players = new \Maniaplanet\WebServices\Players($username, $password);
 
-while(true)
+
+try
 {
-	try
-	{
-		echo "Enter a Maniaplanet login:\n";
-		$login = trim(fgets(STDIN));
-		$player = $players->get($login);
-		print_r($player);
-	}
-	catch(\Maniaplanet\WebServices\Exception $e)
-	{
-		echo "Error!\n";
-		printf('HTTP Response: %d %s', $e->getHTTPStatusCode(),
-			$e->getHTTPStatusMessage());
-		echo "\n";
-		printf('API Response: %s (%d)', $e->getMessage(), $e->getCode());
-		echo "\n";
-	}
+	echo "Enter a ManiaPlanet user login:\n";
+	$user = trim(fgets(STDIN));
+	
+	echo "Canyon rankings:";
+	$canyonRankings = new \Maniaplanet\WebServices\Rankings\Canyon($user, $password);
+	print_r($canyonRankings->getMultiplayerWorld());
+}
+catch(\Maniaplanet\WebServices\Exception $e)
+{
+	echo "Error!\n";
+	printf('HTTP Response: %d %s', $e->getHTTPStatusCode(),
+		$e->getHTTPStatusMessage());
+	echo "\n";
+	printf('API Response: %s (%d)', $e->getMessage(), $e->getCode());
 	echo "\n";
 }
+echo "\n";
+
 ?>
