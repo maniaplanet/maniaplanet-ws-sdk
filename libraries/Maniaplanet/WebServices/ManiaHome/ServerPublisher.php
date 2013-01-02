@@ -48,7 +48,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null)
 	{
 		$n = new Notification();
-		$n->senderName = $this->serverLogin;
+		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$n->message = $message;
 		$n->link = $link;
 		$n->iconStyle = $iconStyle;
@@ -72,7 +72,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null)
 	{
 		$n = new Notification();
-		$n->senderName = $this->serverLogin;
+		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$n->message = $message;
 		$n->link = $link;
 		$n->iconStyle = $iconStyle;
@@ -94,7 +94,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	function postPrivateNotification($message, $receiverName, $link = null)
 	{
 		$n = new Notification();
-		$n->senderName = $this->serverLogin;
+		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$n->message = $message;
 		$n->link = $link;
 		$n->receiverName = $receiverName;
@@ -117,7 +117,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	function postPrivateEvent($message, $eventDate, $receiverName, $link = null)
 	{
 		$e = new Event();
-		$e->senderName = $this->serverLogin;
+		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$e->message = $message;
 		$e->link = $link;
 		$e->receiverName = $receiverName;
@@ -138,7 +138,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	function postPublicEvent($message, $eventDate, $link = null)
 	{
 		$e = new Event();
-		$e->senderName = $this->serverLogin;
+		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$e->message = $message;
 		$e->link = $link;
 		$e->eventDate = $eventDate;
