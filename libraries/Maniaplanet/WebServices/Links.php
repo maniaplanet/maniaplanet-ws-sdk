@@ -21,6 +21,8 @@ class Links extends HTTPClient
 	const CATEGORY_STREAM = 7;
 	const CATEGORY_SERVER_LOGIN = 8;
 	const CATEGORY_REGISTRATION = 9;
+	const CATEGORY_MANIALINK_BRACKETS = 10;
+	const CATEGORY_URL_BRACKETS = 11;
 
 	function createForTeam($teamId, $link, $name, $category, $isFeatured = false)
 	{
@@ -44,7 +46,7 @@ class Links extends HTTPClient
 			'featured' => $isFeatured,
 			'competitionId' => $competitionId,
 		);
-		
+
 		return $this->execute('POST', '/competitions/%d/links/', array($competitionId, $obj));
 	}
 
