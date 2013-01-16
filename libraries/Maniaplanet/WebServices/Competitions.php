@@ -15,6 +15,10 @@ class Competitions extends HTTPClient
 	const REGISTRATION_MODE_OPEN_VALIDATION_NEEDED = 2;
 	const REGISTRATION_MODE_CLOSED = 3;
 
+	const VISIBILITY_HIDDEN = 0;
+	const VISIBILITY_VISIBLE = 1;
+	const VISIBILITY_VISIBLE_UNLISTED = 2;
+
 	/**
 	 * return the Map pool of the competition
 	 * @param int $id Id of the competition
@@ -54,6 +58,15 @@ class Competitions extends HTTPClient
 		return $this->execute('POST', '/competitions/%d/invite/', array($competitionId, array('teamId' => $teamId)));
 	}
 
+	/**
+	 *
+	 * @param string $name
+	 * @param string $titleIdString
+	 * @param boolean $isLan
+	 * @param string $registrationMode One of self::REGISTRATION_*
+	 * @return type
+	 * @throws Exception
+	 */
 	function create($name, $titleIdString, $isLan, $registrationMode = self::REGISTRATION_MODE_OPEN)
 	{
 		if(!$name)
@@ -73,7 +86,25 @@ class Competitions extends HTTPClient
 					'registrationMode' => $registrationMode
 				)));
 	}
-	
+
+	/**
+	 *
+	 * @param int $id
+	 * @param string $name
+	 * @param string $titleIdString
+	 * @param boolean $isLan
+	 * @param type $registrationMode
+	 * @param \DateTime|string $registrationStartDate
+	 * @param \DateTime|string $registrationEndDate
+	 * @param \DateTime|string $startDate
+	 * @param \DateTime|string $endDate
+	 * @param int $minOpponents
+	 * @param int $maxOpponents
+	 * @param int $visibility One of the const self::VISIBLITY_*
+	 * @param int $registrationCost
+	 * @return
+	 * @throws Exception
+	 */
 	function update($id, $name, $titleIdString, $isLan, $registrationMode = self::REGISTRATION_MODE_OPEN,
 			$registrationStartDate = null, $registrationEndDate = null, $startDate = null, $endDate = null,
 			$minOpponents = 8, $maxOpponents = 16, $visibility = 0, $registrationCost = 0)
@@ -98,10 +129,10 @@ class Competitions extends HTTPClient
 					'titleId' => $titleIdString,
 					'lan' => $isLan,
 					'registrationMode' => $registrationMode,
-					'registrationStartDate' => $registrationStartDate,
-					'registrationEndDate' => $registrationEndDate,
-					'startDate' => $startDate,
-					'endDate' => $endDate,
+					'registrationStartDate' => ($registrationStartDate instanceof \DateTime) ? $registrationStartDate->format(\DateTime::ISO8601) : $registrationStartDate,
+					'registrationEndDate' => ($registrationEndDate instanceof \DateTime) ? $registrationEndDate->format(\DateTime::ISO8601) : $registrationEndDate,
+					'startDate' => ($startDate instanceof \DateTime) ? $startDate->format(\DateTime::ISO8601) : $startDate,
+					'endDate' => ($endDate instanceof \DateTime) ? $endDate->format(\DateTime::ISO8601) : $endDate,
 					'minOpponents' => $minOpponents,
 					'maxOpponents' => $maxOpponents,
 					'visibility' => $visibility,
