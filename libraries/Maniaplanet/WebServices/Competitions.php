@@ -59,6 +59,27 @@ class Competitions extends HTTPClient
 	}
 
 	/**
+	 * Works only during the registration phase
+	 * @param int $competitionId
+	 * @param int $teamId
+	 * @return type
+	 * @throws Exception
+	 */
+	function removeTeam($competitionId, $teamId)
+	{
+		if(!$competitionId)
+		{
+			throw new Exception('Invalid competitionId');
+		}
+		if(!$teamId)
+		{
+			throw new Exception('Invalid teamId');
+		}
+
+		return $this->execute('DELETE', '/competitions/%d/teams/%d/', array($competitionId, $teamId));
+	}
+
+	/**
 	 *
 	 * @param string $name
 	 * @param string $titleIdString
