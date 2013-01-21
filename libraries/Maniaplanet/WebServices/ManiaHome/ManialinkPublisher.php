@@ -80,7 +80,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
 	 * @return int
 	 */
-	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null)
+	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null)
 	{
 		$n = new Notification();
 		$n->senderName = $this->manialink;
