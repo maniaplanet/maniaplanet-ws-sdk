@@ -45,7 +45,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
 	 * @return int
 	 */
-	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null)
+	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null)
 	{
 		$n = new Notification();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -53,6 +53,8 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->link = $link;
 		$n->iconStyle = $iconStyle;
 		$n->iconSubStyle = $iconSubstyle;
+		$n->titleId = $titleIdString;
+		$n->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/notification/public/', array($n));
 	}
 
@@ -69,7 +71,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
 	 * @return int
 	 */
-	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null)
+	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null)
 	{
 		$n = new Notification();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -78,6 +80,8 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->iconStyle = $iconStyle;
 		$n->iconSubStyle = $iconSubstyle;
 		$n->receiverName = $receiverName;
+		$n->titleId = $titleIdString;
+		$n->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/notification/personal/', array($n));
 	}
 
@@ -91,7 +95,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @return int
 	 */
-	function postPrivateNotification($message, $receiverName, $link = null)
+	function postPrivateNotification($message, $receiverName, $link = null, $titleIdString = null)
 	{
 		$n = new Notification();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -99,6 +103,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->link = $link;
 		$n->receiverName = $receiverName;
 		$n->isPrivate = true;
+		$n->titleId = $titleIdString;
 		return $this->execute('POST', '/maniahome/notification/private/', array($n));
 	}
 
@@ -114,7 +119,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @return int
 	 */
-	function postPrivateEvent($message, $eventDate, $receiverName, $link = null)
+	function postPrivateEvent($message, $eventDate, $receiverName, $link = null, $titleIdString = null, $mediaURL = null)
 	{
 		$e = new Event();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -123,6 +128,8 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$e->receiverName = $receiverName;
 		$e->eventDate = $eventDate;
 		$e->isPrivate = true;
+		$n->titleId = $titleIdString;
+		$n->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/event/private/', array($e));
 	}
 
@@ -135,13 +142,15 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @return int
 	 */
-	function postPublicEvent($message, $eventDate, $link = null)
+	function postPublicEvent($message, $eventDate, $link = null, $titleIdString = null, $mediaURL = null)
 	{
 		$e = new Event();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
 		$e->message = $message;
 		$e->link = $link;
 		$e->eventDate = $eventDate;
+		$n->titleId = $titleIdString;
+		$n->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
 

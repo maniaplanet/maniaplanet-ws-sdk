@@ -83,6 +83,20 @@ class Notification
 	 * @var integer
 	 */
 	public $priority;
+	
+	/**
+	 * (optional)
+	 * title Id String used to post the notification in a specific title.
+	 * If not set the default title is ManiaPlanet
+	 * @var string
+	 */
+	public $titleId;
+	
+	/**
+	 * (optional)
+	 * a link to a media (jpg,png,dds or bik) it will be used for details
+	 */
+	public $mediaURL;
 
 }
 
