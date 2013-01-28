@@ -61,7 +61,7 @@ class ManiaFlash extends HTTPClient
 	 * @param string $iconSubStyle
 	 * @return type
 	 */
-	public function postMessage($channelId, $message, $link = null, $iconStyle = null, $iconSubStyle = null)
+	public function postMessage($channelId, $message, $link = null, $iconStyle = null, $iconSubStyle = null, $mediaURL = null)
 	{
 		return $this->execute('POST', '/maniaflash/channels/%s/', array(
 			$channelId,
@@ -69,6 +69,7 @@ class ManiaFlash extends HTTPClient
 				'message' => $message,
 				'link' => $link,
 				'iconStyle' => $iconStyle,
-				'iconSubStyle' => $iconSubStyle)));
+				'iconSubStyle' => $iconSubStyle,
+				'mediaURL' => $mediaURL)));
 	}
 }
