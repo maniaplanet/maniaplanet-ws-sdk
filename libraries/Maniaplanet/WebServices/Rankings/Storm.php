@@ -7,7 +7,7 @@
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
  * @author      $Author$:
  * @version     $Revision$:
- * @date        $Dat
+ * @date        $Date$:
  */
 
 namespace Maniaplanet\WebServices\Rankings;
