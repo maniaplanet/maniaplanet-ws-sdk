@@ -56,4 +56,14 @@ class Teams extends HTTPClient
 
 		return $this->execute('GET', '/teams/%d/admins/', array($id));
 	}
+
+	function getRank($id)
+	{
+		if (!$id)
+		{
+			throw new Exception('Invalid id');
+		}
+
+		return $this->execute('GET', '/teams/%d/rank/', array($id));
+	}
 }
