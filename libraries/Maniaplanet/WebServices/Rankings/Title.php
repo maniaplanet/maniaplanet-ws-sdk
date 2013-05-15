@@ -39,7 +39,7 @@ class Title extends \Maniaplanet\WebServices\HTTPClient
 			throw new Exception('Invalid zone path');
 		}
 		return $this->execute('GET', '/titles/rankings/multiplayer/zone/%s/?title=%s&offset=%d&length=%d',
-						array($title, $path, $offset, $length));
+						array($path, $title, $offset, $length));
 	}
 }
 
