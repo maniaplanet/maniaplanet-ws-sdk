@@ -151,7 +151,7 @@ class Rankings extends HTTPClient
 				return '/stadium';
 
 			default:
-				return '/title';
+				return '/titles';
 		}
 	}
 }

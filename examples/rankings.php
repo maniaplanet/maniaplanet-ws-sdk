@@ -16,17 +16,43 @@ $username = trim(fgets(STDIN));
 echo "Enter your API password:\n";
 $password = trim(fgets(STDIN));
 
-$players = new \Maniaplanet\WebServices\Players($username, $password);
-
+$player = new \Maniaplanet\WebServices\Players($username, $password);
 
 try
 {
-	echo "Enter a ManiaPlanet user login:\n";
-	$user = trim(fgets(STDIN));
-	
 	echo "Canyon rankings:";
-	$canyonRankings = new \Maniaplanet\WebServices\Rankings\Canyon($user, $password);
-	print_r($canyonRankings->getMultiplayerWorld());
+	$rankings = new \Maniaplanet\WebServices\Rankings($username, $password);
+	print_r($rankings->getMultiplayerWorld('TMCanyon',0,2));
+}
+catch(\Maniaplanet\WebServices\Exception $e)
+{
+	echo "Error!\n";
+	printf('HTTP Response: %d %s', $e->getHTTPStatusCode(),
+		$e->getHTTPStatusMessage());
+	echo "\n";
+	printf('API Response: %s (%d)', $e->getMessage(), $e->getCode());
+	echo "\n";
+}
+try
+{
+	echo "Storm rankings:";
+	$rankings = new \Maniaplanet\WebServices\Rankings($username, $password);
+	print_r($rankings->getMultiplayerWorld('SMStorm',0,2));
+}
+catch(\Maniaplanet\WebServices\Exception $e)
+{
+	echo "Error!\n";
+	printf('HTTP Response: %d %s', $e->getHTTPStatusCode(),
+		$e->getHTTPStatusMessage());
+	echo "\n";
+	printf('API Response: %s (%d)', $e->getMessage(), $e->getCode());
+	echo "\n";
+}
+try
+{
+	echo "Elite rankings:";
+	$rankings = new \Maniaplanet\WebServices\Rankings($username, $password);
+	print_r($rankings->getMultiplayerWorld('SMStormElite@nadeolabs',0,2));
 }
 catch(\Maniaplanet\WebServices\Exception $e)
 {
