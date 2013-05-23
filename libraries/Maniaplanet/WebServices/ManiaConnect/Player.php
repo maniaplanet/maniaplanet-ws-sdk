@@ -93,12 +93,12 @@ class Player extends Client
 	{
 		return $this->executeOAuth2('GET', '/player/dedicated/');
 	}
-	
+
 	/**
 	 * Gets the list of server loing's report abuses
-	 * 
+	 *
 	 * Scope needed: dedicated
-	 * 
+	 *
 	 * @return array[object]
 	 */
 	function getReportAbuses($serverLogin)
@@ -156,6 +156,14 @@ class Player extends Client
 	function getInstalledTitles()
 	{
 		return $this->executeOAuth2('GET', '/player/titles/installed/');
+	}
+
+	/**
+	 * scope needed : favorite_servers
+	 */
+	function getFavoriteServers()
+	{
+		return $this->executeOAuth2('GET', '/favorites/servers/');
 	}
 
 }

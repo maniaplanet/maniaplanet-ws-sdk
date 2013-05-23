@@ -18,7 +18,7 @@ namespace Maniaplanet\WebServices;
  */
 abstract class HTTPClient
 {
-	const VERSION = '4.0';
+	const VERSION = '4.1';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',

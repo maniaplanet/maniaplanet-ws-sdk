@@ -19,7 +19,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 {
 	/**
 	 * Path for the OAuth2 Token Endpoint on our API
-	 * 
+	 *
 	 * @var string
 	 */
 
@@ -29,10 +29,10 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	protected $logoutURL = 'https://ws.maniaplanet.com/oauth2/authorize/logout/';
 
 	/**
-	 * An implementation of the Peristance interface to store data (such as 
+	 * An implementation of the Peristance interface to store data (such as
 	 * access tokens) between requests. Default implementation is using PHP
 	 * session but you can easily write your own if needed.
-	 * 
+	 *
 	 * @param \Maniaplanet\WebServices\ManiaConnect\Persistance
 	 */
 	static protected $persistance;
@@ -62,9 +62,9 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 	/**
-	 * When a user is not authentified, you need to create a link to the URL 
+	 * When a user is not authentified, you need to create a link to the URL
 	 * returned by this method.
-	 * 
+	 *
 	 * @param string $scope Space-separated list of scopes. Leave empty if you just need the basic one
 	 * @param string $redirectURI Where to redirect the user after auth. Leave empty for the current URI
 	 * @return string Login URL
@@ -77,9 +77,9 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 	/**
-	 * If you want to place a "logout" button, you can use this link to log the 
+	 * If you want to place a "logout" button, you can use this link to log the
 	 * user out of the player page too. Don't forget to empty your sessions .
-	 * 
+	 *
 	 * @see \Maniaplanet\WebServices\ManiaConnect\Client::logout()
 	 * @param string $redirectURI Where to redirect the user after he logged out. Leave empty for current URI
 	 * @return string Logout URL
@@ -92,7 +92,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 	/**
-	 * Destroys the persistance. Call that when you want to log a 
+	 * Destroys the persistance. Call that when you want to log a
 	 * user out, or implement your own way of logging out.
 	 */
 	function logout()
@@ -102,7 +102,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 
 	/**
 	 * Returns the Current URL.
-	 * 
+	 *
 	 * @return string The current URL.
 	 * @see http://code.google.com/p/oauth2-php
 	 * @author Originally written by Naitik Shah <naitik@facebook.com>.
@@ -138,7 +138,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	/**
 	 * Since $_SERVER['REQUEST_URI'] is only available on Apache, we
 	 * generate an equivalent using other environment variables.
-	 * 
+	 *
 	 * @see http://code.google.com/p/oauth2-php
 	 * @author Originally written by Naitik Shah <naitik@facebook.com>.
 	 * @author Update to draft v10 by Edison Wong <hswong3i@pantarei-design.com>
@@ -182,52 +182,79 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 	/**
-	 * Tries to get an access token. 
+	 * Tries to get an access token.
 	 * If one is found in the session, it returns it.
 	 * If a code is found in the request, it tries to exchange it for an access
 	 * token on the OAuth2 Token Endpoint
 	 * Else it returns false
-	 * 
+	 *
 	 * @return string An OAuth2 access token, or false if none is found
 	 */
 	protected function getAccessToken()
 	{
-		$token = self::$persistance->getVariable('access_token');
-		if($token)
+		$token = self::$persistance->getVariable('token');
+		if(!$this->isAccessTokenExpired())
 		{
-			return $token;
+			return $token->access_token;
 		}
+		else if ($token !== null && $token->refresh_token !== null)
+		{
+			$token = $this->getTokenFromRefreshToken($token->refresh_token);
+			return $token->access_token;
+		}
+
 		if(isset($_REQUEST['code']))
 		{
 			$code = $_REQUEST['code'];
 			if($code)
 			{
 				$redirectURI = self::$persistance->getVariable('redirect_uri') ? : $this->getCurrentURI();
-				$accessToken = $this->getAccessTokenFromCode($code, $redirectURI);
-				self::$persistance->setVariable('access_token', $accessToken);
-				return $accessToken;
+
+				$token = $this->getTokenFromCode($code, $redirectURI);
+
+				self::$persistance->deleteVariable('redirect_uri');
+				self::$persistance->deleteVariable('code');
+
+				return $token->access_token;
 			}
 		}
 	}
 
-	private function getAccessTokenFromCode($authorizationCode, $redirectURI)
+	private function getTokenFromCode($authorizationCode, $redirectURI)
+	{
+		return $this->getTokenFromParamsArray(array(
+			'client_id' => $this->username,
+			'client_secret' => $this->password,
+			'redirect_uri' => $redirectURI,
+			'grant_type' => 'authorization_code',
+			'code' => $authorizationCode,
+			));
+	}
+
+	private function getTokenFromRefreshToken($refreshToken)
+	{
+		return $this->getTokenFromParamsArray(array(
+			'client_id' => $this->username,
+			'client_secret' => $this->password,
+			'grant_type' => 'refresh_token',
+			'refresh_token' => $refreshToken,
+			));
+	}
+
+	private function getTokenFromParamsArray(array $params)
 	{
 		$contentType = $this->contentType;
 		$serializeCallback = $this->serializeCallback;
 		$this->contentType = 'application/x-www-form-urlencoded';
 		$this->serializeCallback = null;
 
-		$params = http_build_query(array(
-			'client_id' => $this->username,
-			'client_secret' => $this->password,
-			'redirect_uri' => $redirectURI,
-			'grant_type' => 'authorization_code',
-			'code' => $authorizationCode,
-			), '', '&');
+		$params = http_build_query($params, '', '&');
 
 		try
 		{
-			$response = $this->execute('POST', self::TOKEN_PATH, array($params));
+			$token = $this->execute('POST', self::TOKEN_PATH, array($params));
+			$token->created = time();
+			self::$persistance->setVariable('token', $token);
 		}
 		catch(\Maniaplanet\WebServices\Exception $e)
 		{
@@ -265,21 +292,18 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		$this->contentType = $contentType;
 		$this->serializeCallback = $serializeCallback;
 
-		self::$persistance->deleteVariable('redirect_uri');
-		self::$persistance->deleteVariable('code');
-
-		return $response->access_token;
+		return $token;
 	}
 
 	/**
 	 * Executes an request on the API with an OAuth2 access token.
 	 * It works just like its parent execute() method.
-	 * 
+	 *
 	 * @see \Maniaplanet\WebServices\HTTPClient::execute()
 	 */
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
-		$this->headers = array(sprintf('Authorization: Bearer %s', self::$persistance->getVariable('access_token')));
+		$this->headers[] = sprintf('Authorization: Bearer %s', $this->getAccessToken());
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try
@@ -295,6 +319,17 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		}
 	}
 
+	protected function isAccessTokenExpired()
+	{
+		$token = self::$persistance->getVariable('token');
+
+		if ($token == null)
+		{
+			return true;
+		}
+
+		return ($token->created + ($token->expires_in - 30)) < time();
+	}
 }
 
 ?>
