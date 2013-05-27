@@ -150,6 +150,9 @@ class Rankings extends HTTPClient
 			case 'TMStadium':
 				return '/stadium';
 
+			case 'SMStormElite@nadeolabs':
+				return '/elite';
+
 			default:
 				return '/titles';
 		}
