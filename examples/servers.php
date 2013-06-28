@@ -23,7 +23,7 @@ try
 {
 	echo "A server list:";
 	$service = new \Maniaplanet\WebServices\Servers($username, $password);
-	$list = $service->getFilteredList(array('environment'=>'Storm', 'title'=>'SMStorm', 'mode'=>'Melee', 'playersMin'=>1, 'hideFull'=>true, 'visibility'=>'visible', 'zone'=>'World|France','length'=>20));
+	$list = $service->getFilteredList(array('environment'=>'Storm', 'title'=>'SMStorm', 'mode'=>'Melee', 'playersMin'=>1, 'hideFull'=>true, 'visibility'=>'visible', 'zone'=>'World|Europe|France','length'=>20));
 	print_r($list);
 }
 catch(\Maniaplanet\WebServices\Exception $e)
