@@ -152,6 +152,9 @@ class Rankings extends HTTPClient
 
 			case 'SMStormElite@nadeolabs':
 				return '/elite';
+				
+			case 'TMValley':
+				return '/valley';
 
 			default:
 				return '/titles';
