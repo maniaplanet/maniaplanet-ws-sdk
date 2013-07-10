@@ -31,7 +31,7 @@ class Players extends HTTPClient
 
 	/**
 	 * @param string $login Login of a Maniaplanet account
-	 * @return object
+	 * @return int
 	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function getManiaStars($login)
