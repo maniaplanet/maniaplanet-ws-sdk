@@ -28,6 +28,20 @@ class Players extends HTTPClient
 		}
 		return $this->execute('GET', '/players/%s/', array($login));
 	}
+
+	/**
+	 * @param string $login Login of a Maniaplanet account
+	 * @return object
+	 * @throws \Maniaplanet\WebServices\Exception
+	 */
+	function getManiaStars($login)
+	{
+		if(!$login)
+		{
+			throw new Exception('Invalid login');
+		}
+		return $this->execute('GET', '/players/%s/maniastars/', array($login));
+	}
 }
 
 ?>
