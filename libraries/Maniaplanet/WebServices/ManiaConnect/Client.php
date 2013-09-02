@@ -193,7 +193,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	protected function getAccessToken()
 	{
 		$token = self::$persistance->getVariable('token');
-		if(!$this->isAccessTokenExpired())
+		if(!$this->isAccessTokenExpired($token))
 		{
 			return $token->access_token;
 		}
@@ -303,7 +303,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
-		$this->headers[] = sprintf('Authorization: Bearer %s', $this->getAccessToken());
+		$this->headers[0x1] = sprintf('Authorization: Bearer %s', $this->getAccessToken());
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try
@@ -319,10 +319,8 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		}
 	}
 
-	protected function isAccessTokenExpired()
+	protected function isAccessTokenExpired($token)
 	{
-		$token = self::$persistance->getVariable('token');
-
 		if ($token == null)
 		{
 			return true;
