@@ -56,20 +56,17 @@ class ManiaFlash extends HTTPClient
 	 * Publish a message on a maniaflash channel
 	 * @param string $channelId
 	 * @param string $message
-	 * @param string $link
-	 * @param string $iconStyle
-	 * @param string $iconSubStyle
+	 * @param string $longMessage
+	 * @param string $mediaUrl
 	 * @return type
 	 */
-	public function postMessage($channelId, $message, $link = null, $iconStyle = null, $iconSubStyle = null, $mediaURL = null)
+	public function postMessage($channelId, $message, $longMessage = null, $mediaURL = null)
 	{
 		return $this->execute('POST', '/maniaflash/channels/%s/', array(
 			$channelId,
 			array(
 				'message' => $message,
-				'link' => $link,
-				'iconStyle' => $iconStyle,
-				'iconSubStyle' => $iconSubStyle,
+				'longMessage' => $longMessage,
 				'mediaURL' => $mediaURL)));
 	}
 }
