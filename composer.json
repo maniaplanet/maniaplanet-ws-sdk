@@ -1,0 +1,28 @@
+{
+    "name": "maniaplanet/maniaplanet-ws-sdk",
+    "type": "library",
+    "description": "Library to query ManiaPlanet webservices (shootmania and trackmania²)",
+    "keywords": ["Oauth2", "cURL", "ManiaPlanet", "ShootMania", "TrackMania", "WebService", "SDK"],
+    "homepage": "https://github.com/maniaplanet/maniaplanet-ws-sdk",
+	"license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Nadeo",
+            "email": "contact@nadeo.com",
+            "homepage": "http://www.nadeo.com/"
+        }
+    ],
+	"support": {
+        "forum": "http://forum.maniaplanet.com/viewforum.php?f=282"
+    },
+    "require": {
+        "php": ">=5.3",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maniaplanet\\": "libraries/Maniaplanet/"
+        }
+    }
+}
