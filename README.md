@@ -12,5 +12,5 @@ GNU LESSER GENERAL PUBLIC LICENSE Version 3.
 Useful links
 ------------
 
-Support & doc forum: http://forum.maniaplanet.com/viewforum.php?f=282
-Manage your API credentials: https://player.maniaplanet.com/webservices
+* Support & doc forum: http://forum.maniaplanet.com/viewforum.php?f=282
+* Manage your API credentials: https://player.maniaplanet.com/webservices
