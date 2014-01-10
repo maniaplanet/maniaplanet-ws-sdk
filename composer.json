@@ -1,7 +1,7 @@
 {
     "name": "maniaplanet/maniaplanet-ws-sdk",
     "type": "library",
-    "description": "Library to query ManiaPlanet webservices (shootmania and trackmania²)",
+    "description": "Library to query ManiaPlanet webservices (shootmania and trackmania 2)",
     "keywords": ["Oauth2", "cURL", "ManiaPlanet", "ShootMania", "TrackMania", "WebService", "SDK"],
     "homepage": "https://github.com/maniaplanet/maniaplanet-ws-sdk",
 	"license": "LGPL-3.0",
