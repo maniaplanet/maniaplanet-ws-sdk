@@ -21,7 +21,7 @@
         "ext-json": "*"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Maniaplanet\\": "libraries/"
         }
     }
