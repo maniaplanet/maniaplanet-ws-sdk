@@ -1,6 +1,10 @@
 Maniaplanet Web Services SDK for PHP
 ====================================
 
+[![Latest Stable Version](https://poser.pugx.org/maniaplanet/maniaplanet-ws-sdk/v/stable.png)](https://packagist.org/packages/maniaplanet/maniaplanet-ws-sdk)
+[![Total Downloads](https://poser.pugx.org/maniaplanet/maniaplanet-ws-sdk/downloads.png)](https://packagist.org/packages/maniaplanet/maniaplanet-ws-sdk)
+
+
 The Maniaplanet Web Services is the public API that everyone can use to retrieve various information about the game, the players, the rankings, etc. You can use that API to build all sorts of applications.
 
 This project is an open-source PHP SDK for easy integration in your applications. It is developed and supported by Ubisoft Nadeo. 
