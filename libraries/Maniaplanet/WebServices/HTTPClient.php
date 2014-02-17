@@ -278,6 +278,8 @@ abstract class HTTPClient
 			$responseBody = curl_exec($ch);
 			$responseBodyRaw = $responseBody;
 			$responseInfo = curl_getinfo($ch);
+			$curlError = curl_error($ch);
+			$curlErrorNo = curl_errno($ch);
 			curl_close($ch);
 		}
 		catch(\Exception $e)
@@ -302,8 +304,8 @@ abstract class HTTPClient
 		}
 		else
 		{
-			$message = '';
-			$code = 0;
+			$message = $curlError;
+			$code = $curlErrorNo;
 			$statusCode = $responseInfo['http_code'];
 			$statusMessage = null;
 
