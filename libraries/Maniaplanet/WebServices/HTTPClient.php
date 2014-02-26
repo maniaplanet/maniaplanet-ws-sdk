@@ -287,7 +287,7 @@ abstract class HTTPClient
 			$responseBody = curl_exec($ch);
 			$responseBodyRaw = $responseBody;
 			$responseInfo = curl_getinfo($ch);
-			if($this->config->slowQueryThreshold)
+			if($this->slowQueryThreshold)
 			{
 				$mtime = round($responseInfo['total_time'] / 1000);
 				if($mtime > $this->slowRequestThreshold)
