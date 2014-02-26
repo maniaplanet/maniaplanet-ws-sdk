@@ -18,7 +18,7 @@ namespace Maniaplanet\WebServices;
  */
 abstract class HTTPClient
 {
-	const VERSION = '5.0.1';
+	const VERSION = '5.0.2';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',
@@ -124,6 +124,13 @@ abstract class HTTPClient
 	 * Callback for unserializing data received by the API
 	 */
 	protected $unserializeCallback = 'json_decode';
+	
+	/**
+	 * Logging request if it takes more than X ms
+	 * 
+	 * @var int 
+	 */
+	protected $slowRequestThreshold;
 
 	/**
 	 * Additional headers to be sent with the requests
@@ -141,7 +148,7 @@ abstract class HTTPClient
 	 * @param string $username API username
 	 * @param string $password API password
 	 */
-	function __construct($username = null, $password = null)
+	function __construct($username = null, $password = null, $slowRequestThreshold = null)
 	{
 		if(!function_exists('curl_init'))
 		{
@@ -158,10 +165,12 @@ abstract class HTTPClient
 			$config = \ManiaLib\WebServices\Config::getInstance();
 			$username = $config->username;
 			$password = $config->password;
+			$slowRequestThreshold = $config->slowRequestThreshold;
 		}
 
 		$this->username = $username;
 		$this->password = $password;
+		$this->slowRequestThreshold = $slowRequestThreshold;
 	}
 
 	/**
@@ -278,6 +287,15 @@ abstract class HTTPClient
 			$responseBody = curl_exec($ch);
 			$responseBodyRaw = $responseBody;
 			$responseInfo = curl_getinfo($ch);
+			if($this->config->slowQueryThreshold)
+			{
+				$mtime = round($responseInfo['total_time'] / 1000);
+				if($mtime > $this->config->slowQueryThreshold)
+				{
+					$message = sprintf('%s ms: %s %s');
+					\ManiaLib\Utils\Logger::info($mtime, $method, $url);
+				}
+			}
 			$curlError = curl_error($ch);
 			$curlErrorNo = curl_errno($ch);
 			curl_close($ch);
