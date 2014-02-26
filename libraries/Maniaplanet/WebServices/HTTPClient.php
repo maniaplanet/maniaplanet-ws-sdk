@@ -18,7 +18,7 @@ namespace Maniaplanet\WebServices;
  */
 abstract class HTTPClient
 {
-	const VERSION = '5.0.2';
+	const VERSION = '5.0.4';
 
 	private static $HTTPStatusCodes = array(
 		100 => 'Continue',
@@ -289,7 +289,7 @@ abstract class HTTPClient
 			$responseInfo = curl_getinfo($ch);
 			if($this->slowRequestThreshold)
 			{
-				$mtime = round($responseInfo['total_time'] / 1000);
+				$mtime = round($responseInfo['total_time'] * 1000);
 				if($mtime > $this->slowRequestThreshold)
 				{
 					$message = sprintf('%s ms: %s %s', $mtime, $method, $url);
