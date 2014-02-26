@@ -292,8 +292,8 @@ abstract class HTTPClient
 				$mtime = round($responseInfo['total_time'] / 1000);
 				if($mtime > $this->config->slowQueryThreshold)
 				{
-					$message = sprintf('%s ms: %s %s');
-					\ManiaLib\Utils\Logger::info($mtime, $method, $url);
+					$message = sprintf('%s ms: %s %s', $mtime, $method, $url);
+					\ManiaLib\Utils\Logger::info($message);
 				}
 			}
 			$curlError = curl_error($ch);
