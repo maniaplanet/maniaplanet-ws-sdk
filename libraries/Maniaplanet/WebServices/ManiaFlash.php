@@ -31,6 +31,27 @@ class ManiaFlash extends HTTPClient
 		}
 		return $this->execute('GET', '/maniaflash/channels/%s/', array($id));
 	}
+	
+	/**
+	 * Return latest messages of an hashtag
+	 * @param string $id
+	 * @return Object[]
+	 *				- id
+	 *				- author
+	 *				- dateCreated
+	 *				- message
+	 *				- longMessage
+	 *				- mediaURL
+	 * @throws Exception
+	 */
+	public function getHashtagMessages($name, $offset = 0, $length = 10)
+	{
+		if(!$name)
+		{
+			throw new Exception('Please specify a tag name');
+		}
+		return $this->execute('GET', '/maniaflash/hashtags/%s/messages/?offset=%d&length=%d', array($id, $offset, $length));
+	}
 
 	/**
 	 * Return latest messages of a channel
@@ -40,7 +61,8 @@ class ManiaFlash extends HTTPClient
 	 *				- author
 	 *				- dateCreated
 	 *				- message
-	 *				- link
+	 *				- longMessage
+	 *				- mediaURL
 	 * @throws Exception
 	 */
 	public function getMessages($id, $offset = 0, $length = 10)
