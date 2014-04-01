@@ -232,8 +232,8 @@ abstract class HTTPClient
 		$options = array();
 		$header = array();
 
-		$header[] = 'Accept: '.$this->accept;
-		$header[] = 'Content-type: '.$this->contentType;
+		$header['accept'] = 'Accept: '.$this->accept;
+		$header['content-type'] = 'Content-type: '.$this->contentType;
 		$header = array_merge($header, $this->headers);
 
 		switch($method)

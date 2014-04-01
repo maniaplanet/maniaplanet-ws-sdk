@@ -303,7 +303,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 	 */
 	protected function executeOAuth2($method, $ressource, array $params = array())
 	{
-		$this->headers[0x1] = sprintf('Authorization: Bearer %s', $this->getAccessToken());
+		$this->headers['authorization'] = sprintf('Authorization: Bearer %s', $this->getAccessToken());
 		// We don't need auth since we are using an access token
 		$this->enableAuth = false;
 		try
