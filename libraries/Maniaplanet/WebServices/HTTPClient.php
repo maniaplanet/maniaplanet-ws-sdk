@@ -274,6 +274,7 @@ abstract class HTTPClient
 			$options[CURLOPT_USERPWD] = $this->username.':'.$this->password;
 		}
 		$options[CURLOPT_TIMEOUT] = 10;
+		$options[CURLOPT_CONNECTTIMEOUT] = 10;
 		$options[CURLOPT_RETURNTRANSFER] = true;
 		$options[CURLOPT_USERAGENT] = 'maniaplanet-ws-sdk/'.self::VERSION;
 
