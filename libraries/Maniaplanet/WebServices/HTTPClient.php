@@ -131,6 +131,13 @@ abstract class HTTPClient
 	 * @var int 
 	 */
 	protected $slowRequestThreshold;
+	
+	/**
+	 * Last request exec time in ms, if slow request logging is enabled.
+	 * 
+	 * @var int 
+	 */
+	protected $lastRequestExecTime;
 
 	/**
 	 * Additional headers to be sent with the requests
@@ -293,6 +300,7 @@ abstract class HTTPClient
 				$mtime = round($responseInfo['total_time'] * 1000);
 				if($mtime > $this->slowRequestThreshold)
 				{
+					$this->lastRequestExecTime = $mtime;
 					$message = sprintf('%s ms: %s %s', $mtime, $method, $url);
 					\ManiaLib\Utils\Logger::info($message);
 				}
