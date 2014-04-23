@@ -295,16 +295,18 @@ abstract class HTTPClient
 			$responseBody = curl_exec($ch);
 			$responseBodyRaw = $responseBody;
 			$responseInfo = curl_getinfo($ch);
+			
+			// Instrumentation
+			$this->lastRequestExecTime = round($responseInfo['total_time'] * 1000);
 			if($this->slowRequestThreshold)
 			{
-				$mtime = round($responseInfo['total_time'] * 1000);
-				if($mtime > $this->slowRequestThreshold)
+				if($this->lastRequestExecTime > $this->slowRequestThreshold)
 				{
-					$this->lastRequestExecTime = $mtime;
-					$message = sprintf('%s ms: %s %s', $mtime, $method, $url);
+					$message = sprintf('%s ms: %s %s', $this->lastRequestExecTime, $method, $url);
 					\ManiaLib\Utils\Logger::info($message);
 				}
 			}
+			
 			$curlError = curl_error($ch);
 			$curlErrorNo = curl_errno($ch);
 			curl_close($ch);
