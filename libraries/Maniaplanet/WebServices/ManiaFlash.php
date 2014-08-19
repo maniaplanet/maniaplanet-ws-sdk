@@ -50,7 +50,7 @@ class ManiaFlash extends HTTPClient
 		{
 			throw new Exception('Please specify a tag name');
 		}
-		return $this->execute('GET', '/maniaflash/hashtags/%s/messages/?offset=%d&length=%d', array($id, $offset, $length));
+		return $this->execute('GET', '/maniaflash/hashtags/%s/messages/?offset=%d&length=%d', array($name, $offset, $length));
 	}
 
 	/**
