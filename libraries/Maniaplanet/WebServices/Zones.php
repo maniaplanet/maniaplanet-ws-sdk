@@ -14,7 +14,7 @@ namespace Maniaplanet\WebServices;
 
 /**
  * Access to public zones data.
- * You can either work with zones using their IDs of their full paths.
+ * You can either work with zones using their IDs or their full paths.
  */
 class Zones extends HTTPClient
 {
@@ -136,7 +136,21 @@ class Zones extends HTTPClient
 		}
 		return $this->execute('GET', '/zones/id/%s/population/', array($id));
 	}
-
+	
+	/**
+	 *
+	 * @param string $path A valid path, eg. "World|France"
+	 * @return int Number of players in this zone
+	 * @throws \Maniaplanet\WebServices\Exception
+	 */
+	 function getPopulationByPath($path)
+	 {
+	 	if(!$path)
+	 	{
+	 		throw new Exception('Invalid zone path');
+	 	}
+	 	return $this->execute('GET', '/zones/path/%s/population/', array($path));
+	 }
 }
 
 ?>
