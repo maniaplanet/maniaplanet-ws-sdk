@@ -2,9 +2,6 @@
 /**
  * @copyright   Copyright (c) 2009-2012 NADEO (http://www.nadeo.com)
  * @license     http://www.gnu.org/licenses/lgpl.html LGPL License 3
- * @version     $Revision$:
- * @author      $Author$:
- * @date        $Date$:
  */
 
 namespace Maniaplanet\WebServices\ManiaHome;
@@ -43,9 +40,12 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @param string $iconStyle Icon style (from the Manialink styles)
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
+     * @param string $titleIdString the titleIdString where the notification will be visible. Leave empty to post for ManiaPlanet
+     * @param string $mediaURL Link to a picture (jpg,png or dds) or a video (webm)
+     * @param string $group Group on the notification (http://maniapla.net/maniahome-group)
 	 * @return int
 	 */
-	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null)
+	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null, $group = null)
 	{
 		$n = new Notification();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -55,6 +55,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->iconSubStyle = $iconSubstyle;
 		$n->titleId = $titleIdString;
 		$n->mediaURL = $mediaURL;
+        $n->group = $group;
 		return $this->execute('POST', '/maniahome/notification/public/', array($n));
 	}
 
@@ -69,9 +70,12 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $link  Link when the player clicks on the notification
 	 * @param string $iconStyle Icon style (from the Manialink styles)
 	 * @param string $iconSubstyle Icon substyle (from the Manialink styles)
+     * @param string $titleIdString the titleIdString where the notification will be visible. Leave empty to post for ManiaPlanet
+     * @param string $mediaURL Link to a picture (jpg,png or dds) or a video (webm)
+     * @param string $group Group on the notification (http://maniapla.net/maniahome-group)
 	 * @return int
 	 */
-	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null)
+	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null, $group = null)
 	{
 		$n = new Notification();
 		$n->senderName = (object) array('serverLogin' => $this->serverLogin);
@@ -82,6 +86,7 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$n->receiverName = $receiverName;
 		$n->titleId = $titleIdString;
 		$n->mediaURL = $mediaURL;
+        $n->group = $group;
 		return $this->execute('POST', '/maniahome/notification/personal/', array($n));
 	}
 
