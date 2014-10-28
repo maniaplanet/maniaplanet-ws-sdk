@@ -34,7 +34,7 @@ class Links extends HTTPClient
 			'teamId' => $teamId
 		);
 
-		return $this->execute('POST', '/teams/%d/links/', array($teamId, array($obj)));
+		return $this->execute('POST', '/teams/%d/links/', array($teamId, $obj));
 	}
 
 	function createForCompetition($competitionId, $link, $name, $category, $isFeatured = false)
