@@ -27,7 +27,7 @@ class ManiaFlash extends HTTPClient
 	{
 		if(!$id)
 		{
-			throw new Exception('Invalid login');
+			throw new Exception('Invalid id');
 		}
 		return $this->execute('GET', '/maniaflash/channels/%s/', array($id));
 	}
@@ -69,7 +69,7 @@ class ManiaFlash extends HTTPClient
 	{
 		if(!$id)
 		{
-			throw new Exception('Invalid login');
+			throw new Exception('Invalid id');
 		}
 		return $this->execute('GET', '/maniaflash/channels/%s/messages/?offset=%d&length=%d', array($id, $offset, $length));
 	}
