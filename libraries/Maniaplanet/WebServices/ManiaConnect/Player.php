@@ -163,7 +163,7 @@ class Player extends Client
 	 */
 	function getFavoriteServers()
 	{
-		return $this->executeOAuth2('GET', '/favorites/servers/');
+		return $this->executeOAuth2('GET', '/player/favorites/servers/');
 	}
 
 }
