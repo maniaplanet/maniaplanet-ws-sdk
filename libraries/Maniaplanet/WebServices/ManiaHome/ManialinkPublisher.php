@@ -144,15 +144,15 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$e->receiverName = $receiverName;
 		$e->eventDate = $eventDate;
 		$e->isPrivate = true;
-		$n->titleId = $titleIdString;
-		$n->mediaURL = $mediaURL;
+		$e->titleId = $titleIdString;
+		$e->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/event/private/', array($e));
 	}
 
 	/**
 	 * Create an event visible by all players who bookmarked your Manialink
 	 * @param string $message The message itself. If you send a public notification to a player, the
-	 * @param string message will be prepended with its nickname. Max length is 255 chars, you
+	 * message will be prepended with its nickname. Max length is 255 chars, you
 	 * can use Maniaplanet special chars.
 	 * @param int $eventDate The UNIX Timestamp of the date of the event
 	 * @param string $link  Link when the player clicks on the notification
@@ -165,8 +165,8 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 		$e->message = $message;
 		$e->link = $link;
 		$e->eventDate = $eventDate;
-		$n->titleId = $titleIdString;
-		$n->mediaURL = $mediaURL;
+		$e->titleId = $titleIdString;
+		$e->mediaURL = $mediaURL;
 		return $this->execute('POST', '/maniahome/event/public/', array($e));
 	}
 
