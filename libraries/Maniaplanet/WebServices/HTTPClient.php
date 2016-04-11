@@ -300,7 +300,7 @@ abstract class HTTPClient
 			$this->lastRequestExecTime = round($responseInfo['total_time'] * 1000);
 			if($this->slowRequestThreshold)
 			{
-				if($this->lastRequestExecTime > $this->slowRequestThreshold)
+				if(class_exists('\ManiaLib\Utils\Logger') && $this->lastRequestExecTime > $this->slowRequestThreshold)
 				{
 					$message = sprintf('%s ms: %s %s', $this->lastRequestExecTime, $method, $url);
 					\ManiaLib\Utils\Logger::info($message);
