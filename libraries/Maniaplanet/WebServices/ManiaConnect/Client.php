@@ -312,7 +312,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 			$this->enableAuth = true;
 			return $result;
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			$this->enableAuth = true;
 			throw $e;
@@ -321,7 +321,7 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 
 	protected function isAccessTokenExpired($token)
 	{
-		if ($token == null)
+		if (! is_object($token))
 		{
 			return true;
 		}
