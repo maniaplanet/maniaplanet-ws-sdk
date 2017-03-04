@@ -180,5 +180,3 @@ class Competitions extends HTTPClient
 	}
 
 }
-
-?>

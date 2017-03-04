@@ -22,4 +22,3 @@ else
 	// Player is not logged in, link or redirect to $loginURL
 	printf('<a href="%s">Login</a>', htmlentities($loginURL));
 }
-?>

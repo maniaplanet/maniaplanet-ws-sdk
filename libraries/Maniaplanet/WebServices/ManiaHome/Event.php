@@ -13,5 +13,3 @@ class Event extends \Maniaplanet\WebServices\Notification
 {
 	public $eventDate;
 }
-
-?>

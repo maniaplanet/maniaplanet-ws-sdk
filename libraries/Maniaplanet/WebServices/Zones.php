@@ -152,5 +152,3 @@ class Zones extends HTTPClient
 	 	return $this->execute('GET', '/zones/path/%s/population/', array($path));
 	 }
 }
-
-?>

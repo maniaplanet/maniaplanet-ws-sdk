@@ -171,5 +171,3 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 }
-
-?>

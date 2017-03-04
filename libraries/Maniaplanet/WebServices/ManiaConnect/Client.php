@@ -329,5 +329,3 @@ abstract class Client extends \Maniaplanet\WebServices\HTTPClient
 		return ($token->created + ($token->expires_in - 30)) < time();
 	}
 }
-
-?>

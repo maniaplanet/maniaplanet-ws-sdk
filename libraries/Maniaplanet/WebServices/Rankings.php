@@ -161,4 +161,3 @@ class Rankings extends HTTPClient
 		}
 	}
 }
-?>

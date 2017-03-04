@@ -23,5 +23,3 @@ class Comments extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 }
-
-?>

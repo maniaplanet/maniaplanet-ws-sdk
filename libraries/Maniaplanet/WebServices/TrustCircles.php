@@ -128,5 +128,3 @@ class TrustCircles extends HTTPClient
 		return $this->execute('POST', '/trust/unwhite/', array($player));
 	}
 }
-
-?>

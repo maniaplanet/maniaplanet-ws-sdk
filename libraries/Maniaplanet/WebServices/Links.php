@@ -51,5 +51,3 @@ class Links extends HTTPClient
 	}
 
 }
-
-?>

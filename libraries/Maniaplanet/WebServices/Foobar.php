@@ -65,5 +65,3 @@ class Foobar extends HTTPClient
 	}
 
 }
-
-?>
