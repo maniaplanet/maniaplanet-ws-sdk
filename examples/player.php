@@ -38,4 +38,3 @@ while(true)
 	}
 	echo "\n";
 }
-?>

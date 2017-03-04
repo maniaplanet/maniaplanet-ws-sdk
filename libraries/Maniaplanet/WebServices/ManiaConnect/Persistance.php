@@ -25,5 +25,3 @@ interface Persistance
 
 	function deleteVariable($name);
 }
-
-?>

@@ -28,4 +28,3 @@ catch(\Maniaplanet\WebServices\Exception $e)
 	echo "\n";
 }
 echo "\n";
-?>

@@ -120,5 +120,3 @@ class ManiaHome
 	}
 
 }
-
-?>

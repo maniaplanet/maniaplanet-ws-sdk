@@ -160,5 +160,3 @@ class ServerPublisher extends \Maniaplanet\WebServices\HTTPClient
 	}
 
 }
-
-?>

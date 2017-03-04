@@ -43,5 +43,3 @@ class Players extends HTTPClient
 		return $this->execute('GET', '/players/%s/maniastars/', array($login));
 	}
 }
-
-?>

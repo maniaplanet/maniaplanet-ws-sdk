@@ -381,5 +381,3 @@ abstract class HTTPClient
 	}
 
 }
-
-?>

@@ -103,5 +103,3 @@ class Servers extends HTTPClient
 	}
 
 }
-
-?>

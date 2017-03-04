@@ -35,5 +35,3 @@ class Manialinks extends HTTPClient
 	}
 
 }
-
-?>

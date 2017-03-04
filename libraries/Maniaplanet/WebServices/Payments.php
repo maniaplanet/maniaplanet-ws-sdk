@@ -44,5 +44,3 @@ class Payments extends HTTPClient
 	}
 
 }
-
-?>
