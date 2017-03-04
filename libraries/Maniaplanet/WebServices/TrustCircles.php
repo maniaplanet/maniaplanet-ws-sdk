@@ -28,15 +28,16 @@ class TrustCircles extends HTTPClient
 		{
 			throw new Exception('Invalid player');
 		}
-		
+
 		return $this->execute('GET', '/trust/%s/karma/%s/', array($circle, $player));
 	}
-	
+
 	/**
 	 * Get your own blacklist or a shared one
 	 * @param string|null $circle A circle name or null to get your own
 	 * @return string[]|object[] An array of strings for your own blacklist or an array of objects with 2 fields:
 	 * login of the player, number of blacklistings
+	 * @throws Exception
 	 */
 	function getBlackList($circle = null)
 	{
@@ -49,12 +50,13 @@ class TrustCircles extends HTTPClient
 			return $this->execute('GET', '/trust/black/');
 		}
 	}
-	
+
 	/**
 	 * Get your own whitelist or a shared one
 	 * @param string|null $circle A circle name or null to get your own
 	 * @return string[]|object[] An array of strings for your own whitelist or an array of objects with 2 fields:
 	 * login of the player, number of whitelistings
+	 * @throws Exception
 	 */
 	function getWhiteList($circle = null)
 	{
@@ -67,10 +69,11 @@ class TrustCircles extends HTTPClient
 			return $this->execute('GET', '/trust/white/');
 		}
 	}
-	
+
 	/**
 	 * Blacklist a player
 	 * @param string $player
+	 * @return mixed
 	 * @throws Exception
 	 */
 	function blackList($player)
@@ -79,13 +82,14 @@ class TrustCircles extends HTTPClient
 		{
 			throw new Exception('Invalid player');
 		}
-		
+
 		return $this->execute('POST', '/trust/black/', array($player));
 	}
-	
+
 	/**
 	 * Whitelist a player
 	 * @param string $player
+	 * @return mixed
 	 * @throws Exception
 	 */
 	function whiteList($player)
@@ -94,13 +98,14 @@ class TrustCircles extends HTTPClient
 		{
 			throw new Exception('Invalid player');
 		}
-		
+
 		return $this->execute('POST', '/trust/white/', array($player));
 	}
-	
+
 	/**
 	 * Unblacklist a player
 	 * @param string $player
+	 * @return mixed
 	 * @throws Exception
 	 */
 	function unBlackList($player)
@@ -109,13 +114,14 @@ class TrustCircles extends HTTPClient
 		{
 			throw new Exception('Invalid player');
 		}
-		
+
 		return $this->execute('POST', '/trust/unblack/', array($player));
 	}
-	
+
 	/**
 	 * Unwhitelist a player
 	 * @param string $player
+	 * @return mixed
 	 * @throws Exception
 	 */
 	function unWhiteList($player)
@@ -124,7 +130,7 @@ class TrustCircles extends HTTPClient
 		{
 			throw new Exception('Invalid player');
 		}
-		
+
 		return $this->execute('POST', '/trust/unwhite/', array($player));
 	}
 }

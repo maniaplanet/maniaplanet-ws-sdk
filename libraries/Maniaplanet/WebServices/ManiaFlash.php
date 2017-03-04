@@ -31,10 +31,12 @@ class ManiaFlash extends HTTPClient
 		}
 		return $this->execute('GET', '/maniaflash/channels/%s/', array($id));
 	}
-	
+
 	/**
 	 * Return latest messages of an hashtag
-	 * @param string $id
+	 * @param string $name
+	 * @param int $offset
+	 * @param int $length
 	 * @return Object[]
 	 *				- id
 	 *				- author
@@ -56,6 +58,8 @@ class ManiaFlash extends HTTPClient
 	/**
 	 * Return latest messages of a channel
 	 * @param string $id
+	 * @param int $offset
+	 * @param int $length
 	 * @return Object[]
 	 *				- id
 	 *				- author
@@ -79,8 +83,8 @@ class ManiaFlash extends HTTPClient
 	 * @param string $channelId
 	 * @param string $message
 	 * @param string $longMessage
-	 * @param string $mediaUrl
-	 * @return type
+	 * @param string $mediaURL
+	 * @return object
 	 */
 	public function postMessage($channelId, $message, $longMessage = null, $mediaURL = null)
 	{

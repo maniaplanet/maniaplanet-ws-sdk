@@ -124,7 +124,7 @@ class Zones extends HTTPClient
 
 	/**
 	 *
-	 * @param ind $id Integer identifier of the zone
+	 * @param int $id Integer identifier of the zone
 	 * @return int Number of players in this zone
 	 * @throws \Maniaplanet\WebServices\Exception
 	 */
@@ -136,7 +136,7 @@ class Zones extends HTTPClient
 		}
 		return $this->execute('GET', '/zones/id/%s/population/', array($id));
 	}
-	
+
 	/**
 	 *
 	 * @param string $path A valid path, eg. "World|France"

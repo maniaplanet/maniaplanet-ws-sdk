@@ -124,18 +124,18 @@ abstract class HTTPClient
 	 * Callback for unserializing data received by the API
 	 */
 	protected $unserializeCallback = 'json_decode';
-	
+
 	/**
 	 * Logging request if it takes more than X ms
-	 * 
-	 * @var int 
+	 *
+	 * @var int
 	 */
 	protected $slowRequestThreshold;
-	
+
 	/**
 	 * Last request exec time in ms, if slow request logging is enabled.
-	 * 
-	 * @var int 
+	 *
+	 * @var int
 	 */
 	protected $lastRequestExecTime;
 
@@ -204,6 +204,7 @@ abstract class HTTPClient
 	 * @param array $params The parameters
 	 * @return mixed The unserialized API response
 	 * @throws \Maniaplanet\WebServices\Exception
+	 * @throws \Exception
 	 */
 	protected function execute($method, $ressource, array $params = array())
 	{
@@ -295,7 +296,7 @@ abstract class HTTPClient
 			$responseBody = curl_exec($ch);
 			$responseBodyRaw = $responseBody;
 			$responseInfo = curl_getinfo($ch);
-			
+
 			// Instrumentation
 			$this->lastRequestExecTime = round($responseInfo['total_time'] * 1000);
 			if($this->slowRequestThreshold)
@@ -306,7 +307,7 @@ abstract class HTTPClient
 					\ManiaLib\Utils\Logger::info($message);
 				}
 			}
-			
+
 			$curlError = curl_error($ch);
 			$curlErrorNo = curl_errno($ch);
 			curl_close($ch);
