@@ -19,8 +19,9 @@ class Foobar extends HTTPClient
 {
 
 	/**
-	 * Gets a dummy object from the API. 
-	 * 
+	 * Gets a dummy object from the API.
+	 *
+	 * @return object
 	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function get()
@@ -31,7 +32,7 @@ class Foobar extends HTTPClient
 	/**
 	 * Allows you to post any data on the API. The data you posted will be returned
 	 * in the response:
-	 * 
+	 *
 	 * @param mixed $data Any data
 	 * @return array
 	 * @throws \Maniaplanet\WebServices\Exception
@@ -43,9 +44,9 @@ class Foobar extends HTTPClient
 
 	/**
 	 * Same as the post() method, but with a PUT request
-	 * 
+	 *
 	 * @param mixed $data
-	 * @return array 
+	 * @return array
 	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function put($data)
@@ -55,7 +56,7 @@ class Foobar extends HTTPClient
 
 	/**
 	 * Sends a dummy DELETE request to the server
-	 * 
+	 *
 	 * @return string "DELETE" will be returned in case of success
 	 * @throws \Maniaplanet\WebServices\Exception
 	 */

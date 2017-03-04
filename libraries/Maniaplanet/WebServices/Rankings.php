@@ -12,7 +12,7 @@ class Rankings extends HTTPClient
 	 * Get player ranking for the give title
 	 * @param string $titleId
 	 * @param string $login
-	 * @return Object
+	 * @return object
 	 * @throws Exception
 	 */
 	function getMultiplayerPlayer($titleId, $login)
@@ -29,7 +29,7 @@ class Rankings extends HTTPClient
 	 * @param string $titleId
 	 * @param int $offset
 	 * @param int $length
-	 * @return Object
+	 * @return object
 	 */
 	function getMultiplayerWorld($titleId, $offset = 0, $length = 100)
 	{
@@ -41,7 +41,7 @@ class Rankings extends HTTPClient
 	 * @param string $path
 	 * @param int $offset
 	 * @param int $length
-	 * @return Object
+	 * @return object
 	 * @throws Exception
 	 */
 	function getMultiplayerZone($titleId, $path, $offset = 0, $length = 100)
@@ -57,7 +57,7 @@ class Rankings extends HTTPClient
 	/**
 	 * @param string $titleId
 	 * @param string $login
-	 * @return Object
+	 * @return object
 	 * @throws Exception
 	 */
 	function getSoloPlayer($titleId, $login)
@@ -73,7 +73,8 @@ class Rankings extends HTTPClient
 	 * @param string $titleId
 	 * @param int $offset
 	 * @param int $length
-	 * @return Object
+	 * @return object
+	 * @throws Exception
 	 */
 	function getSoloWorld($titleId, $offset = 0, $length = 100)
 	{
@@ -85,7 +86,7 @@ class Rankings extends HTTPClient
 	 * @param string $path
 	 * @param int $offset
 	 * @param int $length
-	 * @return Object
+	 * @return object
 	 * @throws Exception
 	 */
 	function getSoloZone($titleId, $path, $offset = 0, $length = 100)
@@ -102,7 +103,7 @@ class Rankings extends HTTPClient
 	 * @param string $challengeuid
 	 * @param int $offset
 	 * @param int $length
-	 * @return type
+	 * @return object
 	 * @throws Exception
 	 */
 	function getSoloChallengeWorld($titleId, $challengeuid, $offset = 0, $length = 100)
@@ -121,7 +122,7 @@ class Rankings extends HTTPClient
 	 * @param string $path
 	 * @param int $offset
 	 * @param int $length
-	 * @return type
+	 * @return object
 	 * @throws Exception
 	 */
 	function getSoloChallengeZone($titleId, $challengeuid, $path, $offset = 0, $length = 100)
@@ -152,7 +153,7 @@ class Rankings extends HTTPClient
 
 			case 'SMStormElite@nadeolabs':
 				return '/elite';
-				
+
 			case 'TMValley':
 				return '/valley';
 

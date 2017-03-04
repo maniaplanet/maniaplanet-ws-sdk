@@ -61,6 +61,7 @@ class ManiaHome
 	 * Send a public notification to every player that bookmarked your Manialink.
 	 * @param Notification $n
 	 * @deprecated since version 3.1.0
+	 * @return mixed
 	 */
 	function postPublicNotification(Notification $n)
 	{
@@ -73,6 +74,7 @@ class ManiaHome
 	 * nickname and will be visible by all its buddies.
 	 * @param Notification $n
 	 * @deprecated since version 3.1.0
+	 * @return mixed
 	 */
 	function postPersonalNotification(Notification $n)
 	{
@@ -85,6 +87,7 @@ class ManiaHome
 	 * Notification::$receiverName).
 	 * @param Notification $n
 	 * @deprecated since version 3.1.0
+	 * @return object
 	 */
 	function postPrivateNotification(Notification $n)
 	{

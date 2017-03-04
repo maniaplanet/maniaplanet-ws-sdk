@@ -24,6 +24,7 @@ class Servers extends HTTPClient
 	 *
 	 * @param string $login
 	 * @return object
+	 * @throws Exception
 	 */
 	function get($login)
 	{

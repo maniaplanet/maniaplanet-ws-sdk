@@ -21,7 +21,7 @@ class Competitions extends HTTPClient
 
 	/**
 	 * return the Map pool of the competition
-	 * @param int $id Id of the competition
+	 * @param int $competitionId Id of the competition
 	 * @return object
 	 * @throws Exception
 	 */
@@ -62,7 +62,7 @@ class Competitions extends HTTPClient
 	 * Works only during the registration phase
 	 * @param int $competitionId
 	 * @param int $teamId
-	 * @return type
+	 * @return object
 	 * @throws Exception
 	 */
 	function removeTeam($competitionId, $teamId)
@@ -84,8 +84,8 @@ class Competitions extends HTTPClient
 	 * @param string $name
 	 * @param string $titleIdString
 	 * @param boolean $isLan
-	 * @param string $registrationMode One of self::REGISTRATION_*
-	 * @return type
+	 * @param string|int $registrationMode One of self::REGISTRATION_*
+	 * @return object
 	 * @throws Exception
 	 */
 	function create($name, $titleIdString, $isLan, $registrationMode = self::REGISTRATION_MODE_OPEN)
@@ -114,7 +114,7 @@ class Competitions extends HTTPClient
 	 * @param string $name
 	 * @param string $titleIdString
 	 * @param boolean $isLan
-	 * @param type $registrationMode
+	 * @param string|int $registrationMode
 	 * @param \DateTime|string $registrationStartDate
 	 * @param \DateTime|string $registrationEndDate
 	 * @param \DateTime|string $startDate
@@ -123,7 +123,7 @@ class Competitions extends HTTPClient
 	 * @param int $maxOpponents
 	 * @param int $visibility One of the const self::VISIBLITY_*
 	 * @param int $registrationCost
-	 * @return
+	 * @return object
 	 * @throws Exception
 	 */
 	function update($id, $name, $titleIdString, $isLan, $registrationMode = self::REGISTRATION_MODE_OPEN,
@@ -165,6 +165,8 @@ class Competitions extends HTTPClient
 	 * Register final results of your competition
 	 * @param int $competitionId
 	 * @param array $results results should be an array with numeric keys from 1 to n, with the team ids as value
+	 * @return object
+	 * @throws Exception
 	 */
 	function registerResults($competitionId, array $results)
 	{

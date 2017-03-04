@@ -20,10 +20,10 @@ class Manialinks extends HTTPClient
 
 	/**
 	 * Retrieves information about a Manialink code.
-	 * 
+	 *
 	 * @param string $code Short Manialink code
 	 * @return object
-	 * @throws \TrackMania\WebServices\Exception 
+	 * @throws \Maniaplanet\WebServices\Exception
 	 */
 	function get($code)
 	{

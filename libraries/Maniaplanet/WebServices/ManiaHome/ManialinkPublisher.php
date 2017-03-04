@@ -53,7 +53,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $titleIdString the titleIdString where the notification will be visible. Leave empty to post for ManiaPlanet
 	 * @param string $mediaURL Link to a picture (jpg,png or dds) or a video (webm)
      * @param string $group Group of the notification (http://maniapla.net/maniahome-group)
-	 * @return int
+	 * @return mixed
 	 */
 	function postPublicNotification($message, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null, $group = null)
 	{
@@ -83,7 +83,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
      * @param string $titleIdString the titleIdString where the notification will be visible. Leave empty to post for ManiaPlanet
      * @param string $mediaURL Link to a picture (jpg,png or dds) or a video (webm)
      * @param string $group Group on the notification (http://maniapla.net/maniahome-group)
-	 * @return int
+	 * @return mixed
 	 */
 	function postPersonalNotification($message, $receiverName, $link = null, $iconStyle = null, $iconSubstyle = null, $titleIdString = null, $mediaURL = null, $group = null)
 	{
@@ -109,7 +109,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string $receiverName The receiver of the notification.
 	 * @param string $link  Link when the player clicks on the notification
      * @param string $titleIdString the titleIdString where the notification will be visible. Leave empty to post for ManiaPlanet
-	 * @return int
+	 * @return object
 	 */
 	function postPrivateNotification($message, $receiverName, $link = null, $titleIdString = null)
 	{
@@ -133,7 +133,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * @param string|string[] $receiverName The receiver(s) of the notification.
 	 * @param int $eventDate The UNIX Timestamp of the date of the event
 	 * @param string $link  Link when the player clicks on the notification
-	 * @return int
+	 * @return mixed
 	 */
 	function postPrivateEvent($message, $eventDate, $receiverName, $link = null, $titleIdString = null, $mediaURL = null)
 	{
@@ -156,7 +156,7 @@ class ManialinkPublisher extends \Maniaplanet\WebServices\HTTPClient
 	 * can use Maniaplanet special chars.
 	 * @param int $eventDate The UNIX Timestamp of the date of the event
 	 * @param string $link  Link when the player clicks on the notification
-	 * @return int
+	 * @return mixed
 	 */
 	function postPublicEvent($message, $eventDate, $link = null, $titleIdString = null, $mediaURL = null)
 	{

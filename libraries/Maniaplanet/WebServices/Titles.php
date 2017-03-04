@@ -14,6 +14,11 @@ namespace Maniaplanet\WebServices;
 
 class Titles extends HTTPClient
 {
+	/**
+	 * @param string $idString
+	 * @return object
+	 * @throws Exception
+	 */
 	function get($idString)
 	{
 		return $this->execute('GET', '/titles/%s/', array($idString));
